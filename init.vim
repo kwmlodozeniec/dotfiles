@@ -20,6 +20,9 @@ set history=500
 " Show line numbers
 set number
 
+" Enable spell check
+set spell spelllang=en_gb
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
