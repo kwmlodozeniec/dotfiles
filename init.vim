@@ -311,3 +311,7 @@ let g:python3_host_prog = 'C:\Python38\python.exe'
 
 " Airline
 let g:airline_powerline_fonts = 1
+
+" Map j-j and k-k to Escape key
+imap jj <Esc>
+imap kk <Esc>
