@@ -11,6 +11,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
@@ -22,6 +23,12 @@ set number
 
 " Enable spell check
 set spell spelllang=en_gb
+
+" Enable mouse
+set mouse=a
+
+" Enable clipboard
+set clipboard=unnamedplus
 
 " Enable filetype plugins
 filetype plugin on
