@@ -1,34 +1,30 @@
+" Plugins
 call plug#begin('~\AppData\Local\nvim-data\plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
-Plug 'ctrlpvim/ctrlp.vim' " fuzzy find files
-Plug 'scrooloose/nerdcommenter'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'liuchengxu/vim-which-key'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Code completion
+Plug 'preservim/nerdtree' " File explorer
+Plug 'Xuyuanp/nerdtree-git-plugin' " Git plugin for file explorer
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Syntax highlighting in file explorer
+Plug 'ryanoasis/vim-devicons' " File icons
+Plug 'airblade/vim-gitgutter' " Git status in gutter
+Plug 'ctrlpvim/ctrlp.vim' " Fuzzy find files
+Plug 'scrooloose/nerdcommenter' " Commenting plugin
+Plug 'morhetz/gruvbox' " Gruvbox theme
+Plug 'vim-airline/vim-airline' " Airline status bar
+Plug 'vim-airline/vim-airline-themes' " Airline themes
+Plug 'liuchengxu/vim-which-key' " Leader key mappings plugin
 
 call plug#end()
 
-" Sets how many lines of history VIM has to remember
-set history=500
+set history=500 " Sets how many lines of history VIM has to remember
 
-" Show line numbers
-set number
+set number " Show line numbers
 
-" Enable spell check
-set spell spelllang=en_gb
+set spell spelllang=en_gb " Enable spell check
 
-" Enable mouse
-set mouse=a
+set mouse=a " Enable mouse
 
-" Enable clipboard
-set clipboard=unnamedplus
+set clipboard=unnamedplus " Enable clipboard
 
 " Enable filetype plugins
 filetype plugin on
@@ -38,14 +34,11 @@ filetype indent on
 set autoread
 au FocusGained,BufEnter * checktime
 
-" Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :w!<cr> " Fast saving
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 
-" Turn on the Wild menu
-set wildmenu
+set wildmenu " Turn on the Wild menu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -55,41 +48,33 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-"Always show current position
-set ruler
+set ruler "Always show current position
 
-" Height of the command bar
-set cmdheight=1
+set colorcolumn=100 " Show line length marker
 
-" A buffer becomes hidden when it is abandoned
-set hid
+set cmdheight=1 " Height of the command bar
+
+set hid " A buffer becomes hidden when it is abandoned
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
-set ignorecase
+set ignorecase " Ignore case when searching
 
-" When searching try to be smart about cases
-set smartcase
+set smartcase " When searching try to be smart about cases
 
-" Highlight search results
-set hlsearch
+set hlsearch " Highlight search results
 
-" Makes search act like search in modern browsers
-set incsearch
+set incsearch " Makes search act like search in modern browsers
 
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
+set lazyredraw " Don't redraw while executing macros (good performance config)
 
-" For regular expressions turn magic on
-set magic
+set magic " For regular expressions turn magic on
 
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
+set showmatch " Show matching brackets when text indicator is over them
+
+set mat=2 " How many tenths of a second to blink when matching brackets
 
 " No annoying sound on errors
 set noerrorbells
@@ -97,15 +82,15 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Enable syntax highlighting
-syntax enable
+syntax enable " Enable syntax highlighting
 
+" Enable gruvbox theme
 try
     colorscheme gruvbox
 catch
 endtry
 
-set background=dark
+set background=dark " Tell VIM background is dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -115,22 +100,18 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=UTF-8
+set encoding=UTF-8 " Set UTF-8 as standard encoding
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+set ffs=unix,dos,mac " Use Unix as the standard file type
 
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
 set nowb
 set noswapfile
 
-" Use spaces instead of tabs
-set expandtab
+set expandtab " Use spaces instead of tabs
 
-" Be smart when using tabs
-set smarttab
+set smarttab " Be smart when using tabs
 
 " 1 tab == 4 spaces
 set shiftwidth=4
@@ -145,7 +126,6 @@ set si "Smart indent
 set wrap "Wrap lines
 
 " Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
@@ -168,6 +148,7 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
+" Navigate buffers
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
@@ -190,7 +171,7 @@ map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers
+" Specify the behaviour when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -200,12 +181,7 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-" set statusline^=%{coc#status()}
+set laststatus=2 " Always show the status line
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
@@ -220,7 +196,7 @@ if has("mac") || has("macunix")
     vmap <D-k> <M-k>
 endif
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" Delete trailing white space on save
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
@@ -236,7 +212,7 @@ endif
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
+" Spell check shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
@@ -310,15 +286,16 @@ function! SetupCommandAbbrs(from, to)
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
           \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-" Use C to open coc config
-call SetupCommandAbbrs('C', 'CocConfig')
+call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig 
+
 " Prefer Python 3
 set pyxversion=3
 let g:python3_host_prog = 'C:\Python38\python.exe'
 
-" Airline
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1 " Airline
 
 " Map j-j and k-k to Escape key
 imap jj <Esc>
 imap kk <Esc>
+imap jk <Esc>
+imap kj <Esc>
