@@ -295,7 +295,12 @@ let g:python3_host_prog = 'C:\Python38\python.exe'
 let g:airline_powerline_fonts = 1 " Airline
 
 " Map j-j and k-k to Escape key
-imap jj <Esc>
-imap kk <Esc>
 imap jk <Esc>
 imap kj <Esc>
+
+" NERDTree key bindings
+nmap <C-f> :NERDTreeToggle<CR>
+
+" autocmd VimEnter * NERDTree " Open NERDTree automatically
+" Quit VIM if NERDTree is the only split open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
