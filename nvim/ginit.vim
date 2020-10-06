@@ -11,4 +11,4 @@
 call GuiWindowMaximized(1)
 
 " Set current working directory
-:cd C:\Users\kwmlo\Documents\GitHub
+:cd C:\repos
