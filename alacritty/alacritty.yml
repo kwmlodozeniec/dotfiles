@@ -1,16 +1,21 @@
+shell:
+  program: 'C:\Program Files\PowerShell\7\pwsh.exe'
+enable_experimental_conpty_backend: true
+
 font:
   family: "CaskaydiaCove NF"
 
   # Point size
   size: 14.0
 
-  offset:
-    x: 0
-    y: 0
+  normal:
+    family: "CaskaydiaCove NF"
 
-  glyph_offset:
-    x: 0
-    y: 0
+  bold:
+    family: "CaskaydiaCove NF"
+
+  italic:
+    family: "CaskaydiaCove NF"
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
