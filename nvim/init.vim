@@ -286,13 +286,14 @@ function! SetupCommandAbbrs(from, to)
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
           \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig 
+call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig
 
 " Prefer Python 3
 set pyxversion=3
 let g:python3_host_prog = 'C:\Python38\python.exe'
 
 let g:airline_powerline_fonts = 1 " Airline
+let g:airline_theme='base16_gruvbox_dark_hard'
 
 " Map j-j and k-k to Escape key
 imap jk <Esc>
