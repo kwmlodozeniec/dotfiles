@@ -87,6 +87,7 @@ syntax enable " Enable syntax highlighting
 " Enable gruvbox theme
 try
     colorscheme gruvbox
+    let g:gruvbox_contrast_dark = 'hard'
 catch
 endtry
 
@@ -286,7 +287,7 @@ function! SetupCommandAbbrs(from, to)
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
           \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig
+call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig 
 
 " Prefer Python 3
 set pyxversion=3
