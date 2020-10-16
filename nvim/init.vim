@@ -54,7 +54,7 @@ set colorcolumn=100 " Show line length marker
 
 set cmdheight=1 " Height of the command bar
 
-set hid " A buffer becomes hidden when it is abandoned
+set hidden " A buffer becomes hidden when it is abandoned
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
