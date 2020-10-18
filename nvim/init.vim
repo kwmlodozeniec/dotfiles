@@ -16,12 +16,14 @@ Plug 'morhetz/gruvbox' " Gruvbox theme
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes' " Airline themes
 Plug 'liuchengxu/vim-which-key' " Leader key mappings plugin
+Plug 'frazrepo/vim-rainbow' " Bracket coloriser
 
 call plug#end()
 
 set history=500 " Sets how many lines of history VIM has to remember
 
 set number " Show line numbers
+set relativenumber " Show relative line numbers
 
 set spell spelllang=en_gb " Enable spell check
 
@@ -290,7 +292,7 @@ function! SetupCommandAbbrs(from, to)
           \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
           \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfunction
-call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig 
+call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig
 
 " Prefer Python 3
 set pyxversion=3
@@ -298,6 +300,7 @@ let g:python3_host_prog = 'C:\Python38\python.exe'
 
 let g:airline_powerline_fonts = 1 " Airline
 let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline#extensions#tabline#enabled = 1 " enabled airline tabline
 
 " Map j-j and k-k to Escape key
 imap jk <Esc>
@@ -309,3 +312,10 @@ nmap <C-f> :NERDTreeToggle<CR>
 " autocmd VimEnter * NERDTree " Open NERDTree automatically
 " Quit VIM if NERDTree is the only split open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" vim-rainbow setting
+try
+    "let g:rainbow_active = 1
+    au FileType python,go call rainbow#load()
+catch
+endtry
