@@ -1,3 +1,6 @@
+" Include current file and any children in the path
+set path=.,**
+
 " Plugins
 call plug#begin('~\AppData\Local\nvim-data\plugged')
 
