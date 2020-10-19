@@ -307,7 +307,7 @@ imap jk <Esc>
 imap kj <Esc>
 
 " NERDTree key bindings
-nmap <C-f> :NERDTreeToggle<CR>
+nmap <C-n> :NERDTreeToggle<CR>
 
 " autocmd VimEnter * NERDTree " Open NERDTree automatically
 " Quit VIM if NERDTree is the only split open
