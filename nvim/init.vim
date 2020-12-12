@@ -17,6 +17,8 @@ Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'vim-airline/vim-airline-themes' " Airline themes
 Plug 'liuchengxu/vim-which-key' " Leader key mappings plugin
 Plug 'frazrepo/vim-rainbow' " Bracket coloriser
+Plug 'psf/black', { 'branch': 'stable' } " Black Python formatter
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -307,7 +309,12 @@ imap jk <Esc>
 imap kj <Esc>
 
 " NERDTree key bindings
-nmap <C-n> :NERDTreeToggle<CR>
+function! ToggleNERDTree()
+    NERDTreeToggle
+    silent NERDTreeMirror
+endfunction
+
+nmap <C-n> :call ToggleNERDTree()<CR>
 
 " autocmd VimEnter * NERDTree " Open NERDTree automatically
 " Quit VIM if NERDTree is the only split open
@@ -319,3 +326,5 @@ try
     au FileType python,go call rainbow#load()
 catch
 endtry
+
+let g:black_linelength = 100

@@ -1,5 +1,5 @@
 " Set GUI font
-:GuiFont! CaskaydiaCove\ NF:h14
+:GuiFont! CaskaydiaCove\ NF:h12
 
 " Disable GUI tab line
 :GuiTabline 0
