@@ -25,7 +25,7 @@ call plug#end()
 set history=500 " Sets how many lines of history VIM has to remember
 
 set number " Show line numbers
-set relativenumber " Show relative line numbers
+" set relativenumber " Show relative line numbers
 
 set spell spelllang=en_gb " Enable spell check
 
@@ -298,7 +298,7 @@ call SetupCommandAbbrs('C', 'CocConfig') " Use C to open CoCConfig
 
 " Prefer Python 3
 set pyxversion=3
-let g:python3_host_prog = 'C:\Python38\python.exe'
+let g:python3_host_prog = 'C:\Python39\python.exe'
 
 let g:airline_powerline_fonts = 1 " Airline
 let g:airline_theme='base16_gruvbox_dark_hard'
