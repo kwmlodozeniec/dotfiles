@@ -14,7 +14,6 @@ Plug 'ctrlpvim/ctrlp.vim' " Fuzzy find files
 Plug 'scrooloose/nerdcommenter' " Commenting plugin
 Plug 'morhetz/gruvbox' " Gruvbox theme
 Plug 'vim-airline/vim-airline' " Airline status bar
-Plug 'vim-airline/vim-airline-themes' " Airline themes
 Plug 'liuchengxu/vim-which-key' " Leader key mappings plugin
 Plug 'frazrepo/vim-rainbow' " Bracket coloriser
 Plug 'psf/black', { 'branch': 'stable' } " Black Python formatter
@@ -50,9 +49,9 @@ set wildmenu " Turn on the Wild menu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+    set wildignore+=.git\*,.hg\*,.svn\*,__pycache__\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/__pycache__/*
 endif
 
 set ruler "Always show current position
@@ -93,12 +92,13 @@ syntax enable " Enable syntax highlighting
 
 " Enable gruvbox theme
 try
-    colorscheme gruvbox
     let g:gruvbox_contrast_dark = 'hard'
+    let g:gruvbox_contrast_light = 'hard'
+    colorscheme gruvbox
 catch
 endtry
 
-set background=dark " Tell VIM background is dark
+set background=light " Tell VIM background is dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -151,7 +151,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bd :Bclose<cr>
 
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
@@ -165,7 +165,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>t :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -301,7 +301,7 @@ set pyxversion=3
 let g:python3_host_prog = 'C:\Python39\python.exe'
 
 let g:airline_powerline_fonts = 1 " Airline
-let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1 " enabled airline tabline
 
 " Map j-j and k-k to Escape key
@@ -316,6 +316,9 @@ endfunction
 
 nmap <C-n> :call ToggleNERDTree()<CR>
 
+" Make NERDTree respect wildignore settings
+let g:NERDTreeRespectWildIgnore = 1
+
 " autocmd VimEnter * NERDTree " Open NERDTree automatically
 " Quit VIM if NERDTree is the only split open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -327,4 +330,16 @@ try
 catch
 endtry
 
-let g:black_linelength = 100
+let g:black_linelength = 120
+
+" Recognise Jenkinsfile
+au BufNewFile,BufRead *Jenkinsfile* setf groovy
+
+" Enabled NERDTree git status
+let g:NERDTreeGitStatusUseNerdFonts = 1
+let g:NERDTreeGitStatusConcealBrackets = 1
+
+" Edit vim configuration file
+nnoremap <leader>ve :e $MYVIMRC<CR>
+" Reload vim configuration file
+nnoremap <leader>vr :source $MYVIMRC<CR>
