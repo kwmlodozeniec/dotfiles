@@ -21,10 +21,7 @@
         "defaults": {
             // Put settings here that you want to apply to all profiles.
             "fontFace": "CaskaydiaCove NF",
-            "fontSize": 12,
-            "backgroundImage": "C:\\repos\\geekcharge\\images\\gc_logo.png",
-            "backgroundImageStretchMode": "uniform",
-            "backgroundImageOpacity": 0.1
+            "fontSize": 12
         },
         "list": [
             {
@@ -33,7 +30,7 @@
                 "name": "Windows PowerShell",
                 "commandline": "powershell.exe",
                 "hidden": true,
-                "colorScheme": "Gruvbox Dark"
+                "colorScheme": "Gruvbox Light"
             },
             {
                 // Make changes here to the cmd.exe profile.
@@ -41,42 +38,34 @@
                 "name": "Command Prompt",
                 "commandline": "cmd.exe",
                 "hidden": true,
-                "colorScheme": "Gruvbox Dark"
+                "colorScheme": "Gruvbox Light"
             },
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore",
-                "colorScheme": "Gruvbox Dark"
+                "colorScheme": "Gruvbox Light"
+            },
+            {
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": true,
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
             },
             {
                 "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
                 "hidden": false,
                 "name": "Ubuntu-20.04",
                 "source": "Windows.Terminal.Wsl",
-                "colorScheme": "Gruvbox Dark"
+                "colorScheme": "Gruvbox Light"
             },
             {
                 "guid": "{46ca431a-3a87-5fb3-83cd-11ececc031d2}",
                 "hidden": false,
                 "name": "kali-linux",
                 "source": "Windows.Terminal.Wsl",
-                "colorScheme": "Gruvbox Dark"
-            },
-            {
-                "guid": "{55ca431a-3a87-5fb3-83cd-11ececc031d2}",
-                "hidden": false,
-                "name": "kail-linux-Win-KeX",
-                "commandline": "wsl -d kali-linux kex --wtstart -s",
-                "colorScheme": "Gruvbox Dark"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": true,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure",
-                "colorScheme": "Gruvbox Dark"
+                "colorScheme": "Gruvbox Light"
             }
         ]
     },
@@ -101,9 +90,33 @@
             "brightPurple": "#c77089",
             "brightCyan": "#7db669",
             "brightWhite": "#e6d4a3",
-            // "background": "#1e1e1e",
-            "background": "#27163f",
-            "foreground": "#e6d4a3"
+            "background": "#1e1e1e",
+            "foreground": "#e6d4a3",
+            "selectionBackground": "#e6d4a3",
+            "cursorColor": "#e6d4a3"
+        },
+        {
+            "name": "Gruvbox Light",
+            "black": "#fbf1c7",
+            "red": "#9d0006",
+            "green": "#79740e",
+            "yellow": "#b57614",
+            "blue": "#076678",
+            "purple": "#8f3f71",
+            "cyan": "#427b58",
+            "white": "#3c3836",
+            "brightBlack": "#9d8374",
+            "brightRed": "#cc241d",
+            "brightGreen": "#98971a",
+            "brightYellow": "#d79921",
+            "brightBlue": "#458588",
+            "brightPurple": "#b16186",
+            "brightCyan": "#689d69",
+            "brightWhite": "#7c6f64",
+            "background": "#fbf1c7",
+            "foreground": "#282828",
+            "selectionBackground": "#d5c4a1",
+            "cursorColor": "#282828"
         }
     ],
     // Add custom actions and keybindings to this array.
