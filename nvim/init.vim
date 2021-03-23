@@ -315,6 +315,8 @@ function! ToggleNERDTree()
 endfunction
 
 nmap <C-n> :call ToggleNERDTree()<CR>
+" Set NERDTree position
+let g:NERDTreeWinPos = "right"
 
 " Make NERDTree respect wildignore settings
 let g:NERDTreeRespectWildIgnore = 1
