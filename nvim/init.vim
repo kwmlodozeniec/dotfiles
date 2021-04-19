@@ -15,7 +15,6 @@ Plug 'scrooloose/nerdcommenter' " Commenting plugin
 Plug 'morhetz/gruvbox' " Gruvbox theme
 Plug 'vim-airline/vim-airline' " Airline status bar
 Plug 'liuchengxu/vim-which-key' " Leader key mappings plugin
-Plug 'frazrepo/vim-rainbow' " Bracket coloriser
 Plug 'psf/black', { 'branch': 'stable' } " Black Python formatter
 Plug 'tpope/vim-fugitive'
 
@@ -303,6 +302,8 @@ let g:python3_host_prog = 'C:\Python39\python.exe'
 let g:airline_powerline_fonts = 1 " Airline
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1 " enabled airline tabline
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " Map j-j and k-k to Escape key
 imap jk <Esc>
@@ -325,13 +326,6 @@ let g:NERDTreeRespectWildIgnore = 1
 " Quit VIM if NERDTree is the only split open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" vim-rainbow setting
-try
-    "let g:rainbow_active = 1
-    au FileType python,go call rainbow#load()
-catch
-endtry
-
 let g:black_linelength = 120
 
 " Recognise Jenkinsfile
@@ -345,3 +339,10 @@ let g:NERDTreeGitStatusConcealBrackets = 1
 nnoremap <leader>ve :e $MYVIMRC<CR>
 " Reload vim configuration file
 nnoremap <leader>vr :source $MYVIMRC<CR>
+
+" Render tabs and whitespace
+:set listchars=tab:>-,space:·
+:set list
+
+" GUI client settings
+set guifont=CaskaydiaCove\ NF:h14
