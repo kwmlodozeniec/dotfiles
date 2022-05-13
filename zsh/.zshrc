@@ -41,6 +41,9 @@ source $ZDOTDIR/work_functions
 # Completions
 source $ZDOTDIR/completion.zsh
 
+# Key bindings
+source $ZDOTDIR/key_bindings.zsh
+
 # Pyenv
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
