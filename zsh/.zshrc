@@ -40,6 +40,7 @@ source $ZDOTDIR/work_functions
 
 # Completions
 source $ZDOTDIR/completion.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions.zsh
 
 # Key bindings
 source $ZDOTDIR/key_bindings.zsh
