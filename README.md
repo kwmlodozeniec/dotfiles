@@ -1,12 +1,29 @@
 # Summary
+
 This repository holds various config files I use on my machine for some of the cross platform applications.
 
 ## Overview of directories
-### `alacritty`
-This is a decent terminal emulator Windows, Mac and Linux. I started using it recently on Windows. Feel free to check it out here: https://github.com/alacritty/alacritty
-
-`alacritty.yml` - the main config file, this needs to be placed in a specific directory, which differs for the supported OS's. Please consult the most up to date docs as to where this files needs to live.
 
 ### `nvim`
-Config files for Neovim editor.
-`init.vim` -
+
+Config files for [Neovim](https://neovim.io/) editor.
+
+### `ohmyposh`
+
+My own [Oh My Posh](https://ohmyposh.dev/) prompt theme.
+
+### `powershell` (Windows only)
+
+Config files for [Powershell 7](https://github.com/PowerShell/PowerShell).
+
+### `wezterm`
+
+Config files for [Wezterm](https://wezfurlong.org/wezterm/) terminal.
+
+### `windows_terminal` (Windows only)
+
+Config files for [Windows Terminal](https://github.com/microsoft/terminal).
+
+### `zsh`
+
+Config files for [ZSH](https://zsh.sourceforge.io/) shell.
