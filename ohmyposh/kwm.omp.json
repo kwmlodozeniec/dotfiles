@@ -1,0 +1,110 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "blocks": [
+        {
+            "alignment": "left",
+            "type": "prompt",
+            "segments": [
+                {
+                    "foreground": "#D79921",
+                    "properties": {
+                        "root_icon": "\uF0E7"
+                    },
+                    "style": "plain",
+                    "template": " \uF0E7",
+                    "type": "root"
+                },
+                {
+                    "type": "os",
+                    "style": "plain",
+                    "foreground": "#458588",
+                    "properties": {
+                        "linux": "\uF17C",
+                        "ubuntu": "\uF17C"
+                    },
+                    "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} "
+                },
+                {
+                    "foreground": "#458588",
+                    "properties": {
+                        "home_icon": "\uF015",
+                        "folder_icon": "\uF07C",
+                        "folder_separator_icon": " /",
+                        "style": "agnoster"
+                    },
+                    "style": "plain",
+                    "template": "{{ .Path }} ",
+                    "type": "path"
+                },
+                {
+                    "foreground": "#98971A",
+                    "properties": {
+                        "fetch_status": true,
+                        "fetch_stash_count": true,
+                        "fetch_upstream_icon": true,
+                        "branch_icon": "\uE0A0 "
+                    },
+                    "style": "plain",
+                    "template": "{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uF044 {{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uF046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0}} \uF692 {{ .StashCount }}{{ end }}{{ if gt .WorktreeCount 0}} \uf1bb {{ .WorktreeCount }}{{ end }} ",
+                    "type": "git"
+                },
+                {
+                    "foreground": "#D79921",
+                    "properties": {
+                        "style": "austin"
+                    },
+                    "style": "plain",
+                    "template": " {{ .FormattedMs }} \uF252",
+                    "type": "executiontime"
+                }
+            ]
+        },
+        {
+            "alignment": "right",
+            "type": "prompt",
+            "segments": [
+                {
+                    "properties": {
+                        "fetch_version": true
+                    },
+                    "style": "plain",
+                    "template": " \uE718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }}",
+                    "type": "node"
+                },
+                {
+                    "properties": {
+                        "fetch_version": true,
+                        "display_mode": "context"
+                    },
+                    "style": "plain",
+                    "template": " \uE235 {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}",
+                    "type": "python"
+                },
+                {
+                    "properties": {
+                        "fetch_version": true
+                    },
+                    "style": "plain",
+                    "template": " \uFCD1 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
+                    "type": "go"
+                }
+            ]
+        },
+        {
+            "alignment": "left",
+            "newline": true,
+            "segments": [
+                {
+                    "foreground": "#D3D7CF",
+                    "style": "plain",
+                    "template": "\u276F ",
+                    "type": "text"
+                }
+            ],
+            "type": "prompt"
+        }
+    ],
+    "console_title_template": "{{if .Root}}root | {{end}} {{.Folder}}",
+    "final_space": false,
+    "version": 2
+}
