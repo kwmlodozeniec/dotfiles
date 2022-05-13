@@ -1,0 +1,69 @@
+#!/usr/bin/env zsh
+
+function make-env() {
+    local VENV_NAME="${1:-venv}"
+    python3 -m venv $VENV_NAME
+    source $VENV_NAME/bin/activate
+}
+
+function activate-env() {
+    local VENV_NAME=${1:-venv}
+    source $VENV_NAME/bin/activate
+}
+
+function git-short-log() {
+    local NUMBER=${1:-10}
+    git --no-pager log --pretty=oneline --abbrev-commit -n $NUMBER
+}
+
+function git-rebase() {
+    local NUMBER="${1:-10}"
+    git rebase -i HEAD~$NUMBER
+}
+
+function git-push-force() {
+    git push --force
+}
+
+function git-fetch-prune() {
+    git fetch --prune
+}
+
+function git-branch-list() {
+    git --no-pager branch -al
+}
+
+function git-branch-delete() {
+    git branch -D $1
+}
+
+function git-branch-checkout() {
+    git checkout $1
+}
+
+function gen-reqs-lockfile() {
+    python -m piptools compile --rebuild --generate-hashes --upgrade --index-url=$ARTIFACTORY_URL --output-file=requirements.py$1.lockfile requirements.txt
+}
+
+function gen-test-reqs-lockfile() {
+    python -m piptools compile --rebuild --generate-hashes --upgrade --index-url=$ARTIFACTORY_URL --output-file=requirements-test.py$1.lockfile requirements-test.txt
+}
+
+function load-env() {
+    local ENV_FILE="${1:-.env}"
+    export $(grep -v '^#' $ENV_FILE | xargs)
+}
+
+function unload-env() {
+    local ENV_FILE="${1:-.env}"
+    unset $(grep -v '^#' $ENV_FILE | sed -E 's/(.*)=.*/\1/' | xargs)
+}
+
+function cleanup-merged-branches() {
+    branches=$(git branch -vv | grep ": gone]" | grep -v "\*" | awk '{ print $1 }')
+    if [ -n "$branches" ]; then
+        while IFS= read -r branch; do echo "git branch -D $branch"; done <<<"$branches"
+    else
+        echo "No merged branches found"
+    fi
+}
