@@ -40,7 +40,7 @@ source $ZDOTDIR/work_functions
 
 # Completions
 source $ZDOTDIR/completion.zsh
-source $ZDOTDIR/plugins/zsh-autosuggestions.zsh
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Key bindings
 source $ZDOTDIR/key_bindings.zsh
@@ -76,3 +76,6 @@ function load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# Syntax highlighting
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

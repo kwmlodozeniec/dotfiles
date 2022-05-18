@@ -27,3 +27,7 @@ Config files for [Windows Terminal](https://github.com/microsoft/terminal).
 ### `zsh`
 
 Config files for [ZSH](https://zsh.sourceforge.io/) shell.
+
+### `gtile`
+
+Config files for [gTile](https://github.com/gTile/gTile) GNOME extension.
