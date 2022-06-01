@@ -20,7 +20,8 @@
                     "foreground": "#458588",
                     "properties": {
                         "linux": "\uF17C",
-                        "ubuntu": "\uF17C"
+                        "ubuntu": "\uF17C",
+                        "debian": "\uF17C"
                     },
                     "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} "
                 },
