@@ -43,7 +43,6 @@
 set number          " Show line numbers
 syntax on           " Turn on syntax highlighting
 set encoding=utf-8  " Set encoding to UTF-8 (default was "latin1")
-" set foldenable      " Enable folding
 set visualbell      " Blink cursor on error instead of beeping (grr)
 set ruler           " Show line and column number of the cursor on right side of statusline
 set mouse=a         " Enable mouse support (might not work well on Mac OS X)
@@ -51,7 +50,7 @@ set autoread        " Reload files changed outside vim
 set conceallevel=0  " Remove any text/code concealment, text is shown normally
 
 set clipboard=unnamedplus                   " Enables the clipboard between Vim/Neovim and other applications.
-set completeopt=noinsert,menuone,noselect   " Modifies the auto-complete menu to behave more like an IDE.
+set completeopt=menu,menuone,noselect       " Modifies the auto-complete menu to behave more like an IDE.
 set hidden                                  " Hide unused buffers
 set splitbelow splitright                   " Change the split screen behavior
 set title                                   " Show file title
@@ -124,7 +123,6 @@ Plug 'tpope/vim-fugitive'               " Git wrapper for VIM
 Plug 'tpope/vim-surround'               " Delete/change/add surrounding characters (cs,ds,ys)
 Plug 'junegunn/goyo.vim'                " Distraction free writing (Zen mode)
 Plug 'junegunn/limelight.vim'           " Dim everything but current paragraph
-Plug 'pseewald/vim-anyfold'             " Folding and motion based on indentation
 Plug 'brooth/far.vim'                   " Find and replace help
 Plug 'mhinz/vim-signify'                " Show a diff using Vim its sign column
 Plug 'tpope/vim-obsession'              " Save current VIM session/layout (:Obsess)
@@ -138,25 +136,28 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Python Specific Plugins
-Plug 'tmhedberg/SimpylFold'             " Python code folding for VIM
 Plug 'nvie/vim-flake8'                  " Python PEP-8 checking
 
 " NeoVim Specify Plugins
 if has('nvim')
-  " Nodejs extension host for vim & neovim, load extensions like VSCode and host language servers
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " File parser framework
+    "   - Install support for specific language:  :TSInstall <LANGAUGE>
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-  " File parser framework
-  "   - Install support for specific language:  :TSInstall <LANGAUGE>
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Config for build-in LSP client
+    "   - Run:  npm i -g pyright
+    Plug 'williamboman/nvim-lsp-installer'
+    Plug 'neovim/nvim-lspconfig'
 
-  " Config for build-in LSP client
-  "   - Run:  npm i -g pyright
-  Plug 'neovim/nvim-lspconfig'
-
-  " Auto completion Lua plugin for NVIM
-"   Plug 'hrsh7th/nvim-compe'
+    " Auto completion Lua plugin for NVIM
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/nvim-cmp'
+    " For vsnip users.
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/vim-vsnip'
 endif
 
 " Initialize plugin system
@@ -216,21 +217,10 @@ nmap s <Plug>(easymotion-overwin-f)
 autocmd FileType markdown set conceallevel=0
 set conceallevel=0
 
-" Anyfold Plugin Configuration
-" Folding:
-"    zr/zR - Reduce fold level
-"    zm/zM - Increase fold level
-"    zc/zC - Close fold
-"    zo/zO - Open fold
-"    za/zA - Toggle fold
-"    Capital letters=recursive action
-autocmd Filetype * AnyFoldActivate       " Activate vim-anyfold for all filetypes
-set foldlevel=99
-
 " NeoVim Specify Configurations
 if has('nvim')
-  " Adding pyright static type checker for Python
-  lua require'lspconfig'.pyright.setup{}
+    " Anything specific to NeoVim goes here
+    lua require('completions')
 endif
 
 " Flake8 Configuration
