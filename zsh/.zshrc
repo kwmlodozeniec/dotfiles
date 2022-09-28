@@ -30,6 +30,9 @@ setopt HIST_IGNORE_SPACE      # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS      # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY            # Do not execute immediately upon history expansion.
 
+# Prevent overwritting files with file redirect
+set -o noclobber
+
 # Aliases
 source $ZDOTDIR/aliases
 source $ZDOTDIR/work_aliases
@@ -79,3 +82,6 @@ load-nvmrc
 
 # Syntax highlighting
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Auto .env file loading
+source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
