@@ -3,10 +3,10 @@
 # Aliases
 alias edit-zsh-config="code $ZDOTDIR/.zshrc"
 alias reload-zsh-config="source $ZDOTDIR/.zshrc"
-alias start-remote-browser='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser --shm-size="2g" -e SCREEN_WIDTH="1280" -e SCREEN_HEIGHT="720" selenium/standalone-chrome:4.1.1-20220121'
+alias start-remote-browser='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser --shm-size="2g" -e SCREEN_WIDTH="1920" -e SCREEN_HEIGHT="1080" selenium/standalone-chrome:4.4.0-20220831'
 alias restart-remote-browser='docker restart remote-browser'
 alias stop-remote-browser='docker stop remote-browser'
-alias start-remote-browser-debug='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser-debug --shm-size="2g" -e SCREEN_WIDTH="1280" -e SCREEN_HEIGHT="720" -e SE_OPTS="--log-level FINE" selenium/standalone-chrome:4.1.1-20220121'
+alias start-remote-browser-debug='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser-debug --shm-size="2g" -e SCREEN_WIDTH="1920" -e SCREEN_HEIGHT="1080" -e SE_OPTS="--log-level FINE" selenium/standalone-chrome:4.4.0-20220831'
 alias restart-remote-browser-debug='docker restart remote-browser-debug'
 alias stop-remote-browser-debug='docker stop remote-browser-debug'
 alias vpn-start="sudo systemctl start $VPN_PROFILE_NAME"
@@ -27,4 +27,7 @@ alias rm="rm -i"
 alias ln="ln -i"
 alias upgrade-pyenv="cd $HOME/.pyenv && git pull && cd -"
 alias clear-ipython-history="rm -f $HOME/.ipython/profile_default/history.sqlite"
-alias edit-term-config="code $HOME/.config/wezterm/wezterm.lua"
+alias start-mongo-instance="docker run --rm -d --name mongodb-test -p 27017:27017 mongo:4"
+alias stop-mongo-instance="docker stop mongodb-test"
+alias pcr="pre-commit run --all-files"
+alias edit-tmux-config="code $HOME/.tmux.conf"
