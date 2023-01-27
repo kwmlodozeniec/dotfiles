@@ -1,0 +1,92 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+global_vars:
+  - name: first_name
+    type: shell
+    params:
+      cmd: "echo $FIRSTNAME_CASE"
+      shell: zsh
+  - name: last_name
+    type: shell
+    params:
+      cmd: "echo $LASTNAME_CASE"
+      shell: zsh
+  - name: email
+    type: shell
+    params:
+      cmd: "echo $EMAIL"
+      shell: zsh
+  - name: work_email
+    type: shell
+    params:
+      cmd: "echo $WORK_EMAIL"
+      shell: zsh
+  - name: address
+    type: shell
+    params:
+      cmd: "echo $ADDRESS"
+      shell: zsh
+  - name: mobile
+    type: shell
+    params:
+      cmd: "echo $PHONE_NUMBER"
+      shell: zsh
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%d/%m/%Y"
+
+  # And much more! For more information, visit the docs: https://espanso.org/docs/
+
+  # Email sing off
+  - trigger: ":kr"
+    replace: "Kind regards,\n{{first_name}}"
+
+  # Personal email
+  - trigger: ":email"
+    replace: "{{email}}"
+
+  # Work email
+  - trigger: ":work_email"
+    replace: "{{work_email}}"
+
+  # Address
+  - trigger: ":address"
+    replace: "{{address}}"
+
+  # Mobile number
+  - trigger: ":mobile"
+    replace: "{{mobile}}"
+
+  # First name
+  - trigger: ":first_name"
+    replace: "{{first_name}}"
+
+  # Last name
+  - trigger: ":last_name"
+    replace: "{{last_name}}"
+
+  # Full name
+  - trigger: ":full_name"
+    replace: "{{first_name}} {{last_name}}"
