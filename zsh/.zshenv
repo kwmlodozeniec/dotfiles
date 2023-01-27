@@ -16,9 +16,18 @@ export PATH="$HOME/go/bin:$PATH" # GO
 # Rootless docker
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
 
-# Dev VARs
+# Personal VARs
 export FIRSTNAME=""
 export LASTNAME=""
+export FIRSTNAME_CASE=${(C)FIRSTNAME}
+export LASTNAME_CASE=${(C)LASTNAME}
+export FULL_NAME_CASE="$FIRSTNAME_CASE $LASTNAME_CASE"
+export EMAIL=""
+export WORK_EMAIL=""
+export ADDRESS=""
+export PHONE_NUMBER=""
+
+# Dev VARs
 export VAULT_ADDR=""
 export VAULT_CACERT="$HOME/vault-ca.crt"
 export SEND_TO_PROMETHEUS="false"
