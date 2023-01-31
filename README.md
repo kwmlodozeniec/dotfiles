@@ -16,10 +16,6 @@ My own [Oh My Posh](https://ohmyposh.dev/) prompt theme.
 
 Config files for [Powershell 7](https://github.com/PowerShell/PowerShell).
 
-### `wezterm`
-
-Config files for [Wezterm](https://wezfurlong.org/wezterm/) terminal.
-
 ### `windows_terminal` (Windows only)
 
 Config files for [Windows Terminal](https://github.com/microsoft/terminal).
@@ -31,3 +27,11 @@ Config files for [ZSH](https://zsh.sourceforge.io/) shell.
 ### `gtile`
 
 Config files for [gTile](https://github.com/gTile/gTile) GNOME extension.
+
+### `tmux`
+
+Config files for [tmux](https://github.com/tmux/tmux).
+
+### `espanso`
+
+Config files for [espanso](https://github.com/espanso/espanso).
