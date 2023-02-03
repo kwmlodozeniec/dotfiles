@@ -1,12 +1,55 @@
 {
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "palettes": {
+        "template": "synthwave",
+        "list": {
+            "synthwave": {
+                "COLOR_01": "#011627",
+                "COLOR_02": "#fe4450",
+                "COLOR_03": "#72f1b8",
+                "COLOR_04": "#fede5d",
+                "COLOR_05": "#03edf9",
+                "COLOR_06": "#ff7edb",
+                "COLOR_07": "#03edf9",
+                "COLOR_08": "#ffffff",
+                "COLOR_09": "#575656",
+                "COLOR_10": "#fe4450",
+                "COLOR_11": "#72f1b8",
+                "COLOR_12": "#fede5d",
+                "COLOR_13": "#03edf9",
+                "COLOR_14": "#ff7edb",
+                "COLOR_15": "#03edf9",
+                "COLOR_16": "#ffffff",
+                "BACKGROUND_COLOR": "#262335"
+            },
+            "gruvbox": {
+                "COLOR_01": "#282828",
+                "COLOR_02": "#cc241d",
+                "COLOR_03": "#98971a",
+                "COLOR_04": "#d79921",
+                "COLOR_05": "#458588",
+                "COLOR_06": "#b16286",
+                "COLOR_07": "#689d6a",
+                "COLOR_08": "#a89984",
+                "COLOR_09": "#928374",
+                "COLOR_10": "#fb4934",
+                "COLOR_11": "#b8bb26",
+                "COLOR_12": "#fabd2f",
+                "COLOR_13": "#83a598",
+                "COLOR_14": "#d3869b",
+                "COLOR_15": "#8ec07c",
+                "COLOR_16": "#ebdbb2",
+                "BACKGROUND_COLOR": "#282828"
+            }
+        }
+    },
     "blocks": [
         {
             "alignment": "left",
             "type": "prompt",
             "segments": [
                 {
-                    "foreground": "#D79921",
+                    "foreground": "p:COLOR_04",
                     "properties": {
                         "root_icon": "\uF0E7"
                     },
@@ -17,7 +60,7 @@
                 {
                     "type": "os",
                     "style": "plain",
-                    "foreground": "#458588",
+                    "foreground": "p:COLOR_05",
                     "properties": {
                         "linux": "\uF17C",
                         "ubuntu": "\uF17C",
@@ -26,7 +69,7 @@
                     "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} "
                 },
                 {
-                    "foreground": "#458588",
+                    "foreground": "p:COLOR_05",
                     "properties": {
                         "home_icon": "\uF015",
                         "folder_icon": "\uF07C",
@@ -38,7 +81,7 @@
                     "type": "path"
                 },
                 {
-                    "foreground": "#98971A",
+                    "foreground": "p:COLOR_03",
                     "properties": {
                         "fetch_status": true,
                         "fetch_stash_count": true,
@@ -50,7 +93,7 @@
                     "type": "git"
                 },
                 {
-                    "foreground": "#D79921",
+                    "foreground": "p:COLOR_04",
                     "properties": {
                         "style": "austin"
                     },
@@ -65,6 +108,7 @@
             "type": "prompt",
             "segments": [
                 {
+                    "foreground": "p:COLOR_06",
                     "properties": {
                         "fetch_version": true
                     },
@@ -73,6 +117,7 @@
                     "type": "node"
                 },
                 {
+                    "foreground": "p:COLOR_06",
                     "properties": {
                         "fetch_version": true,
                         "display_mode": "context"
@@ -82,6 +127,7 @@
                     "type": "python"
                 },
                 {
+                    "foreground": "p:COLOR_06",
                     "properties": {
                         "fetch_version": true
                     },
@@ -96,7 +142,7 @@
             "newline": true,
             "segments": [
                 {
-                    "foreground": "#D3D7CF",
+                    "foreground": "p:COLOR_16",
                     "style": "plain",
                     "template": "\u276F ",
                     "type": "text"
