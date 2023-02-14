@@ -64,29 +64,29 @@ matches:
     replace: "Kind regards,\n{{first_name}}"
 
   # Personal email
-  - trigger: ":email"
+  - trigger: ":em"
     replace: "{{email}}"
 
   # Work email
-  - trigger: ":work_email"
+  - trigger: ":wem"
     replace: "{{work_email}}"
 
   # Address
-  - trigger: ":address"
+  - trigger: ":adr"
     replace: "{{address}}"
 
   # Mobile number
-  - trigger: ":mobile"
+  - trigger: ":mob"
     replace: "{{mobile}}"
 
   # First name
-  - trigger: ":first_name"
+  - trigger: ":fm"
     replace: "{{first_name}}"
 
   # Last name
-  - trigger: ":last_name"
+  - trigger: ":lm"
     replace: "{{last_name}}"
 
   # Full name
-  - trigger: ":full_name"
+  - trigger: ":fm"
     replace: "{{first_name}} {{last_name}}"
