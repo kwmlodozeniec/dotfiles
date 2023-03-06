@@ -50,3 +50,6 @@ export NVM_DIR="$HOME/.nvm"
 
 # VPN Profile
 export VPN_PROFILE_NAME=""
+
+# Rust
+. "$HOME/.cargo/env"
