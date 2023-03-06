@@ -6,9 +6,12 @@ export EDITOR="$VISUAL"
 
 # zsh
 export ZDOTDIR="$HOME/.config/zsh"
-export HISTFILE="$ZDOTDIR/.zhistory" # History filepath
-export HISTSIZE=10000                # Maximum events for internal history
-export SAVEHIST=10000
+export HISTFILE="$ZDOTDIR/.zhistory"           # History filepath
+export SAVEHIST=10000                          # Maximum events saved to history
+export HISTSIZE=10000                          # Maximum events loaded from history
+export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..)" # Ignore these commands from history
+export HISTTIMEFORMAT="[%d/%m/%y %T] "         # Timestamp format
+
 
 # PATH
 export PATH="$HOME/go/bin:$PATH" # GO
