@@ -61,6 +61,24 @@ cd ~/.config/zsh/plugins
 
 Config files for [gTile](https://github.com/gTile/gTile) GNOME extension.
 
+To backup the config:
+
+```bash
+dconf dump /org/gnome/shell/extensions/gtile/ > gtile.conf.bak
+```
+
+To reset the config:
+
+```bash
+dconf reset -f /org/gnome/shell/extensions/gtile/
+```
+
+To load the config:
+
+```bash
+dconf load /org/gnome/shell/extensions/gtile/ < gtile/config
+```
+
 ### `tmux`
 
 Config files for [tmux](https://github.com/tmux/tmux).
