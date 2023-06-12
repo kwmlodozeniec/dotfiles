@@ -65,3 +65,6 @@ source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Auto .env file loading
 source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
+
+# Created by `pipx`
+export PATH="$HOME/.local/bin:$PATH"
