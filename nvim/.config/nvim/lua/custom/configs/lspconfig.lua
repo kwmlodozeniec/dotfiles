@@ -21,8 +21,6 @@ lspconfig.gopls.setup({
     settings = {
         completeUnimported = true,
         usePlaceholders = true,
-        analyses = {
-            unusedparams = true
-        }
+        analyses = {unusedparams = true}
     }
 })
