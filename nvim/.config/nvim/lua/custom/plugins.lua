@@ -96,6 +96,7 @@ local plugins = {
     }, { -- Treesitter config
         "nvim-treesitter/nvim-treesitter",
         opts = function() return require "custom.configs.treesitter" end
-    }, {"github/copilot.vim", lazy = false}
+    }, {"github/copilot.vim", lazy = false},
+    {"nvim-tree/nvim-tree.lua", lazy = false}
 }
 return plugins
