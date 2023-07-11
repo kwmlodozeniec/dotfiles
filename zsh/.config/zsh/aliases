@@ -35,4 +35,6 @@ alias start-mongo-instance="docker run --rm -d --name mongodb-test -p 27017:2701
 alias stop-mongo-instance="docker stop mongodb-test"
 alias pcr="pre-commit run --all-files"
 alias edit-tmux-config="code $HOME/.tmux.conf"
+alias docker=podman
 alias history="fc -li 1"
+alias tmux-sessions="$HOME/.config/scripts/tmux-sessions"
