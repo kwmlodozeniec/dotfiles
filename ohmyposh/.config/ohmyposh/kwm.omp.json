@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
     "palettes": {
-        "template": "synthwave",
+        "template": "gruvbox",
         "list": {
             "synthwave": {
                 "COLOR_01": "#011627",
