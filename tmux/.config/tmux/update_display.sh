@@ -13,7 +13,6 @@
 # This script handles updating $DISPLAY within vim also
 
 NEW_DISPLAY=$DISPLAY
-# NEW_DISPLAY=$(tmux show-env | sed -n 's/^DISPLAY=//p')
 
 # Update $DISPLAY in bash, zsh and vim/nvim
 tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_command}" |
@@ -26,4 +25,5 @@ tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_curr
             tmux send-keys -t ${pane_process[0]} ":let \$DISPLAY = \"$NEW_DISPLAY\"" Enter
             tmux send-keys -t ${pane_process[0]} ":silent! xrestore" Enter
         fi
+        tmux send-keys -t ${pane_process[0]} "clear" Enter
     done
