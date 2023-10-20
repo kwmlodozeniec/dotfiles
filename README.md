@@ -81,6 +81,28 @@ To load the config:
 dconf load /org/gnome/shell/extensions/gtile/ < gtile/config
 ```
 
+### `dash-to-panel`
+
+Config files for [dash-to-panel](https://github.com/home-sweet-gnome/dash-to-panel) GNOME extension.
+
+To backup the config:
+
+```bash
+dconf dump /org/gnome/shell/extensions/dash-to-panel/ > dash-to-panel.conf.bak
+```
+
+To reset the config:
+
+```bash
+dconf reset -f /org/gnome/shell/extensions/dash-to-panel/
+```
+
+To load the config:
+
+```bash
+dconf load /org/gnome/shell/extensions/dash-to-panel/ < dash-to-panel/config
+```
+
 ### `tmux`
 
 Config files for [tmux](https://github.com/tmux/tmux).
