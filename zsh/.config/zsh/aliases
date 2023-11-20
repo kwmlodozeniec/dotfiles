@@ -4,17 +4,17 @@
 alias edit-zsh-config="code $ZDOTDIR/.zshrc"
 alias reload-zsh-config="source $ZDOTDIR/.zshrc"
 alias start-remote-browser='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser --shm-size="2g" -e SCREEN_WIDTH="1920" -e SCREEN_HEIGHT="1080" selenium/standalone-chrome:4.4.0-20220831'
-alias restart-remote-browser='docker restart remote-browser'
-alias stop-remote-browser='docker stop remote-browser'
+alias restart-remote-browser="docker restart remote-browser"
+alias stop-remote-browser="docker stop remote-browser"
 alias start-remote-browser-debug='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser-debug --shm-size="2g" -e SCREEN_WIDTH="1920" -e SCREEN_HEIGHT="1080" -e SE_OPTS="--log-level FINE" selenium/standalone-chrome:4.4.0-20220831'
-alias restart-remote-browser-debug='docker restart remote-browser-debug'
-alias stop-remote-browser-debug='docker stop remote-browser-debug'
+alias restart-remote-browser-debug="docker restart remote-browser-debug"
+alias stop-remote-browser-debug="docker stop remote-browser-debug"
 alias vpn-start="sudo systemctl start $VPN_PROFILE_NAME"
 alias vpn-stop="sudo systemctl stop $VPN_PROFILE_NAME"
 alias vpn-status="sudo systemctl status $VPN_PROFILE_NAME"
 alias portainer="docker run -d -p 8000:8000 -p 9000:9000 -p 9443:9443 --name=portainer --restart=always -v /run/user/1000/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest"
 alias docker-restart="systemctl --user restart docker"
-alias k='kubectl'
+alias k="kubectl"
 alias apt-update="sudo apt update"
 alias apt-upgrade="sudo apt upgrade"
 alias apt-install="sudo apt install"
@@ -39,3 +39,6 @@ alias docker=podman
 alias history="fc -li 1"
 alias tmux-sessions="$HOME/.config/scripts/tmux-sessions"
 alias pop-update="sudo apt update && sudo apt list --upgradable && sudo apt full-upgrade && sudo apt autoremove && flatpak update"
+alias copilot="gh copilot"
+alias gcs="gh copilot suggest"
+alias gce="gh copilot explain"
