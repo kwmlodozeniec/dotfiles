@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Aliases
-alias edit-zsh-config="code $ZDOTDIR/.zshrc"
+alias edit-zsh-config="code $ZDOTDIR/"
 alias reload-zsh-config="source $ZDOTDIR/.zshrc"
 alias start-remote-browser='docker run --rm -d -p 4444:4444 -p 7900:7900 --name remote-browser --shm-size="2g" -e SCREEN_WIDTH="1920" -e SCREEN_HEIGHT="1080" selenium/standalone-chrome:4.4.0-20220831'
 alias restart-remote-browser="docker restart remote-browser"
