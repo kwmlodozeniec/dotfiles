@@ -1,4 +1,13 @@
 # General
+# Brew completions
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
 # Load more completions
 fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
 
