@@ -38,6 +38,7 @@ alias edit-tmux-config="code $HOME/.tmux.conf"
 alias docker=podman
 alias history="fc -li 1"
 alias tmux-sessions="$HOME/.config/scripts/tmux-sessions"
+alias aws-profiles="$HOME/.config/scripts/aws-profiles"
 alias pop-update="sudo apt update && sudo apt list --upgradable && sudo apt full-upgrade && sudo apt autoremove && flatpak update"
 alias copilot="gh copilot"
 alias gcs="gh copilot suggest"
