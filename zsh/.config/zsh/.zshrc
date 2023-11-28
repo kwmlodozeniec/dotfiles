@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
 # Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ "$(uname)" = "Darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # Oh-my-posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/kwm.omp.json)"

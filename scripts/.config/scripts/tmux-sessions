@@ -3,7 +3,11 @@
 if [[ $# -eq 1 ]]; then
     session=$1
 else
-    session=$(find $HOME/.config $HOME/work $HOME/private -mindepth 1 -maxdepth 1 -type d | fzf)
+    if [ "$(uname)" = "Darwin" ]; then
+        session=$(find $HOME/.config $HOME/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+    elif [ "$(uname)" = "Linux" ]; then
+        session=$(find $HOME/.config $HOME/work $HOME/private $HOME/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+    fi
 fi
 
 if [[ -z "$session" ]]; then

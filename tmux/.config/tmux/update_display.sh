@@ -15,15 +15,17 @@
 NEW_DISPLAY=$DISPLAY
 
 # Update $DISPLAY in bash, zsh and vim/nvim
-tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_command}" |
-    while read pane_process; do
-        IFS=' ' read -ra pane_process <<<"$pane_process"
-        if [[ "${pane_process[1]}" == "zsh" || "${pane_process[1]}" == "bash" ]]; then
-            tmux send-keys -t ${pane_process[0]} "export DISPLAY=$NEW_DISPLAY" Enter
-        elif [[ "${pane_process[1]}" == *"vi"* ]]; then
-            tmux send-keys -t ${pane_process[0]} Escape
-            tmux send-keys -t ${pane_process[0]} ":let \$DISPLAY = \"$NEW_DISPLAY\"" Enter
-            tmux send-keys -t ${pane_process[0]} ":silent! xrestore" Enter
-        fi
-        tmux send-keys -t ${pane_process[0]} "clear" Enter
-    done
+if [ "$(uname)" = "Linux" ]; then
+    tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_command}" |
+        while read pane_process; do
+            IFS=' ' read -ra pane_process <<<"$pane_process"
+            if [[ "${pane_process[1]}" == "zsh" || "${pane_process[1]}" == "bash" ]]; then
+                tmux send-keys -t ${pane_process[0]} "export DISPLAY=$NEW_DISPLAY" Enter
+            elif [[ "${pane_process[1]}" == *"vi"* ]]; then
+                tmux send-keys -t ${pane_process[0]} Escape
+                tmux send-keys -t ${pane_process[0]} ":let \$DISPLAY = \"$NEW_DISPLAY\"" Enter
+                tmux send-keys -t ${pane_process[0]} ":silent! xrestore" Enter
+            fi
+            tmux send-keys -t ${pane_process[0]} "clear" Enter
+        done
+fi
