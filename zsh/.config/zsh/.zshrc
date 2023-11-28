@@ -54,7 +54,6 @@ source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/key_bindings.zsh
 
 # Pyenv
-eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 # Fuzzy finder
