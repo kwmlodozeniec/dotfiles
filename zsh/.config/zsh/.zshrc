@@ -55,6 +55,7 @@ source $ZDOTDIR/key_bindings.zsh
 
 # Pyenv
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
