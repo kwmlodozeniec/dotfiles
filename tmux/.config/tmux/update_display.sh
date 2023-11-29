@@ -15,7 +15,7 @@
 NEW_DISPLAY=$DISPLAY
 
 # Update $DISPLAY in bash, zsh and vim/nvim
-if [ "$(uname)" = "Linux" ]; then
+if [ "$(uname)" == "Linux" ]; then
     tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_command}" |
         while read pane_process; do
             IFS=' ' read -ra pane_process <<<"$pane_process"
