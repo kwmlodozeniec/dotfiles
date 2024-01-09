@@ -4,4 +4,4 @@
 vim.opt.winbar = "%=%m %f" -- Add file path to winbar
 vim.opt.relativenumber = false -- Disable relative line numbers
 -- Python config
-vim.g.python3_host_prog = "/home/krzysztof/.pyenv/versions/neovim3/bin/python"
+vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim3/bin/python"
