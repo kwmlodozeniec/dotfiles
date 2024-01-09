@@ -7,10 +7,9 @@ This repository holds various config files I use on my machine for some of the c
 ### `nvim`
 
 Config files for [Neovim](https://neovim.io/) editor.
-This is based on [NvChad](https://nvchad.com/) base so first install that and say no to the default config.
+This is based on [LazyVim](https://www.lazyvim.org/) base.
 
 ```bash
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
 stow -v -R -t ~ nvim
 ```
 
