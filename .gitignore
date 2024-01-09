@@ -1,4 +1,5 @@
 .zhistory
 .zcompdump
 .zsh_history
-lazy-lock.json
+tmux/.config/tmux/plugins/*
+zsh/.config/zsh/plugins/*
