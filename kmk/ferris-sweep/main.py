@@ -3,12 +3,14 @@ import board
 from kb import KMKKeyboard
 
 from kmk.keys import KC
-from kmk.modules.holdtap import HoldTap
+from kmk.modules.holdtap import HoldTap, HoldTapRepeat
 from kmk.modules.layers import Layers
 from kmk.modules.mouse_keys import MouseKeys
 from kmk.modules.split import Split
 from kmk.modules.capsword import CapsWord
 from kmk.modules.tapdance import TapDance
+from kmk.modules.combos import Combos, Chord
+from kmk.handlers.sequences import simple_key_sequence
 
 keyboard = KMKKeyboard()
 
@@ -19,13 +21,22 @@ split = Split(
 )
 
 layers = Layers()
-holdtap = HoldTap()
+
+hold_tap = HoldTap()
+hold_tap.tap_time = 200
+hold_tap.repeat = HoldTapRepeat.TAP
+hold_tap.prefer_hold = True
+hold_tap.tap_interrupted = True
+
 mouse_key = MouseKeys()
 caps_word = CapsWord()
+
 tap_dance = TapDance()
 tap_dance.tap_time = 200
 
-keyboard.modules = [layers, split, holdtap, mouse_key, caps_word, tap_dance]
+combos = Combos()
+
+keyboard.modules = [layers, split, hold_tap, mouse_key, caps_word, tap_dance, combos]
 
 # Cleaner key names
 _______ = KC.TRNS
@@ -67,6 +78,28 @@ OS_LCTL = KC.OS(KC.LCTL)
 OS_LSFT = KC.OS(KC.LSFT)
 OS_LALT = KC.OS(KC.LALT)
 
+# Macros/Sequences
+NEXT_SENTENCE = simple_key_sequence(
+    (
+        KC.DOT,
+        KC.SPC,
+        OS_LSFT,
+    )
+)
+
+# Combos
+combos.combos = [
+    Chord((KC.P, KC.L), KC.MINS),
+    Chord((KC.D, KC.H), KC.UNDS),
+    Chord((KC.V, KC.K), NEXT_SENTENCE),
+    Chord((KC.F, KC.U), KC.ESC),
+    Chord((KC.F, KC.P), KC.LBRC),
+    Chord((KC.L, KC.U), KC.RBRC),
+    Chord((KC.C, KC.D), KC.LCBR),
+    Chord((KC.H, KC.COMM), KC.RCBR),
+    Chord((KC.TAB, KC.ENT), KC.TG(5)),
+]
+
 # Tap Dance
 CAPS_TD = KC.TD(
     # Tap once for caps word
@@ -74,6 +107,13 @@ CAPS_TD = KC.TD(
     # Tap twice for caps lock
     KC.CAPS,
 )
+NXT_SENT_TD = KC.TD(
+    # Tap once for full stop
+    KC.DOT,
+    # Tap twice for next sentence macro
+    KC.NEXT_SENTENCE,
+)
+
 
 # fmt: off
 # flake8: noqa
@@ -113,12 +153,6 @@ keyboard.keymap = [
        KC.A,  KC.R,  KC.S,  KC.T,   KC.G,  KC.M,  KC.N,   KC.E,  KC.I,   KC.O,
        KC.Z,   KC.X,   KC.C,    KC.D,    KC.V,    KC.K,    KC.H,    KC.COMM, KC.DOT,  KC.SLSH,
                             KC.BSPC, KC.TAB,    KC.ENT, KC.SPC,
-    ],
-    [  # BLANK
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                               _______, _______, _______, _______,
     ],
 ]
 
