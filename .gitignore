@@ -3,3 +3,4 @@
 .zsh_history
 tmux/.config/tmux/plugins/*
 zsh/.config/zsh/plugins/*
+.DS_Store
