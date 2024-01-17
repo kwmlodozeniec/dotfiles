@@ -44,3 +44,5 @@ alias copilot="gh copilot"
 alias gcs="gh copilot suggest"
 alias gce="gh copilot explain"
 alias git-add-ammend-push="git add . && git commit --amend --no-edit && git push --force-with-lease"
+alias lg="lazygit"
+
