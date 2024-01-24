@@ -3,3 +3,4 @@
 -- Add any additional options here
 -- Python config
 vim.g.python3_host_prog = "$HOME/.pyenv/versions/neovim3/bin/python"
+vim.opt.colorcolumn = "100,120"
