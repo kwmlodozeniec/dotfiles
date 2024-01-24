@@ -3,33 +3,33 @@
 fzf_cmd="fzf --layout=reverse --border"
 
 if [[ $# -eq 1 ]]; then
-	session=$1
+    session=$1
 else
-	if [ "$(uname)" = "Darwin" ]; then
-		session=$(find "$HOME/.config" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d | $fzf_cmd)
-	elif [ "$(uname)" = "Linux" ]; then
-		session=$(find "$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d | $fzf_cmd)
-	fi
+    if [ "$(uname)" = "Darwin" ]; then
+        session=$(find "$HOME/.config" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | $fzf_cmd)
+    elif [ "$(uname)" = "Linux" ]; then
+        session=$(find "$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | $fzf_cmd)
+    fi
 fi
 
 if [[ -z "$session" ]]; then
-	exit 0
+    exit 0
 fi
 
 session_name=$(basename "$session" | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-	tmux new-session -s "$session_name" -c "$session"
-	exit 0
+    tmux new-session -s "$session_name" -c "$session"
+    exit 0
 fi
 
 if ! tmux has-session -t "$session_name" 2>/dev/null; then
-	tmux new-session -s "$session_name" -c "$session" -d
+    tmux new-session -s "$session_name" -c "$session" -d
 fi
 
 if [[ -z $TMUX ]] && [[ $tmux_running ]]; then
-	tmux attach-session -t "$session_name"
+    tmux attach-session -t "$session_name"
 else
-	tmux switch-client -t "$session_name"
+    tmux switch-client -t "$session_name"
 fi
