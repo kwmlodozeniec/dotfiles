@@ -1,45 +1,87 @@
 {
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
     "palettes": {
-        "template": "gruvbox",
+        "template": "catppuccin_mocha",
         "list": {
-            "synthwave": {
-                "COLOR_01": "#011627",
-                "COLOR_02": "#fe4450",
-                "COLOR_03": "#72f1b8",
-                "COLOR_04": "#fede5d",
-                "COLOR_05": "#03edf9",
-                "COLOR_06": "#ff7edb",
-                "COLOR_07": "#03edf9",
-                "COLOR_08": "#ffffff",
-                "COLOR_09": "#575656",
-                "COLOR_10": "#fe4450",
-                "COLOR_11": "#72f1b8",
-                "COLOR_12": "#fede5d",
-                "COLOR_13": "#03edf9",
-                "COLOR_14": "#ff7edb",
-                "COLOR_15": "#03edf9",
-                "COLOR_16": "#ffffff",
-                "BACKGROUND_COLOR": "#262335"
+            "gruvbox_dark": {
+                "COLOR_00": "#1e1e1e",
+                "COLOR_01": "#BE0F17",
+                "COLOR_02": "#868715",
+                "COLOR_03": "#CC881A",
+                "COLOR_04": "#377375",
+                "COLOR_05": "#A04B73",
+                "COLOR_06": "#578E57",
+                "COLOR_07": "#978771",
+                "COLOR_08": "#7F7061",
+                "COLOR_09": "#F73028",
+                "COLOR_10": "#AAB01E",
+                "COLOR_11": "#F7B125",
+                "COLOR_12": "#719586",
+                "COLOR_13": "#C77089",
+                "COLOR_14": "#7DB669",
+                "COLOR_15": "#E6D4A3",
+                "BACKGROUND_COLOR": "#1E1E1E",
+                "FOREGROUND_COLOR": "#E6D4A3"
             },
-            "gruvbox": {
-                "COLOR_01": "#282828",
-                "COLOR_02": "#cc241d",
-                "COLOR_03": "#98971a",
-                "COLOR_04": "#d79921",
-                "COLOR_05": "#458588",
-                "COLOR_06": "#b16286",
-                "COLOR_07": "#689d6a",
-                "COLOR_08": "#a89984",
-                "COLOR_09": "#928374",
-                "COLOR_10": "#fb4934",
-                "COLOR_11": "#b8bb26",
-                "COLOR_12": "#fabd2f",
-                "COLOR_13": "#83a598",
-                "COLOR_14": "#d3869b",
-                "COLOR_15": "#8ec07c",
-                "COLOR_16": "#ebdbb2",
-                "BACKGROUND_COLOR": "#282828"
+            "gruvbox_light": {
+                "COLOR_00": "#FAEFBB",
+                "COLOR_01": "#BE0F17",
+                "COLOR_02": "#868715",
+                "COLOR_03": "#CC881A",
+                "COLOR_04": "#377375",
+                "COLOR_05": "#A04B73",
+                "COLOR_06": "#578E57",
+                "COLOR_07": "#685C51",
+                "COLOR_08": "#7F7061",
+                "COLOR_09": "#890009",
+                "COLOR_10": "#66620D",
+                "COLOR_11": "#A56311",
+                "COLOR_12": "#0E5365",
+                "COLOR_13": "#7B2B5E",
+                "COLOR_14": "#356A46",
+                "COLOR_15": "#2E2A29",
+                "BACKGROUND_COLOR": "#FAEFBB",
+                "FOREGROUND_COLOR": "#2E2A29"
+            },
+            "catppuccin_latte": {
+                "COLOR_00": "#5C5F77",
+                "COLOR_01": "#D20F39",
+                "COLOR_02": "#40A02B",
+                "COLOR_03": "#DF8E1D",
+                "COLOR_04": "#1E66F5",
+                "COLOR_05": "#EA76CB",
+                "COLOR_06": "#179299",
+                "COLOR_07": "#ACB0BE",
+                "COLOR_08": "#6C6F85",
+                "COLOR_09": "#D20F39",
+                "COLOR_10": "#40A02B",
+                "COLOR_11": "#DF8E1D",
+                "COLOR_12": "#1E66F5",
+                "COLOR_13": "#EA76CB",
+                "COLOR_14": "#179299",
+                "COLOR_15": "#BCC0CC",
+                "BACKGROUND_COLOR": "#EFF1F5",
+                "FOREGROUND_COLOR": "#4C4F69"
+            },
+            "catppuccin_mocha": {
+                "COLOR_00": "#45475A",
+                "COLOR_01": "#F38BA8",
+                "COLOR_02": "#A6E3A1",
+                "COLOR_03": "#F9E2AF",
+                "COLOR_04": "#89B4FA",
+                "COLOR_05": "#F5C2E7",
+                "COLOR_06": "#94E2D5",
+                "COLOR_07": "#BAC2DE",
+                "COLOR_08": "#585B70",
+                "COLOR_09": "#F38BA8",
+                "COLOR_10": "#A6E3A1",
+                "COLOR_11": "#F9E2AF",
+                "COLOR_12": "#89B4FA",
+                "COLOR_13": "#F5C2E7",
+                "COLOR_14": "#94E2D5",
+                "COLOR_15": "#A6ADC8",
+                "BACKGROUND_COLOR": "#1E1E2E",
+                "FOREGROUND_COLOR": "#CDD6F4"
             }
         }
     },
@@ -49,7 +91,7 @@
             "type": "prompt",
             "segments": [
                 {
-                    "foreground": "p:COLOR_04",
+                    "foreground": "p:COLOR_07",
                     "properties": {
                         "root_icon": "\uF0E7"
                     },
@@ -60,7 +102,7 @@
                 {
                     "type": "os",
                     "style": "plain",
-                    "foreground": "p:COLOR_05",
+                    "foreground": "p:COLOR_07",
                     "properties": {
                         "linux": "\uF17C",
                         "ubuntu": "\uF17C",
@@ -81,7 +123,7 @@
                     "type": "path"
                 },
                 {
-                    "foreground": "p:COLOR_03",
+                    "foreground": "p:COLOR_12",
                     "properties": {
                         "fetch_status": true,
                         "fetch_stash_count": true,
@@ -93,7 +135,7 @@
                     "type": "git"
                 },
                 {
-                    "foreground": "p:COLOR_04",
+                    "foreground": "p:COLOR_07",
                     "properties": {
                         "style": "austin"
                     },
@@ -108,7 +150,6 @@
             "type": "prompt",
             "segments": [
                 {
-                    "foreground": "p:COLOR_06",
                     "properties": {
                         "fetch_version": true
                     },
@@ -132,7 +173,7 @@
                     }
                 },
                 {
-                    "foreground": "p:COLOR_06",
+                    "foreground": "p:COLOR_05",
                     "properties": {
                         "fetch_version": true,
                         "display_mode": "context"
@@ -142,7 +183,7 @@
                     "type": "python"
                 },
                 {
-                    "foreground": "p:COLOR_06",
+                    "foreground": "p:COLOR_05",
                     "properties": {
                         "fetch_version": true
                     },
@@ -157,7 +198,7 @@
             "newline": true,
             "segments": [
                 {
-                    "foreground": "p:COLOR_16",
+                    "foreground": "p:COLOR_07",
                     "style": "plain",
                     "template": "\u276F ",
                     "type": "text"
