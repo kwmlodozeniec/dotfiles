@@ -128,3 +128,11 @@ Install the config before installing/starting espanso:
 ```bash
 stow -v -R -t ~ espanso
 ```
+
+### `starship`
+
+Config files for [starship prompt](https://starship.rs/).
+
+```bash
+stow -v -R -t ~ starship
+```
