@@ -8,8 +8,11 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
 fi
 
 # Oh-my-posh
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/kwm.omp.json)"
+# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/kwm.omp.json)"
 # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/gruvbox.omp.json)"
+
+# Starship
+eval "$(starship init zsh)"
 
 fpath=($ZDOTDIR/plugins $fpath)
 
