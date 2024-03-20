@@ -73,3 +73,6 @@ source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
 
 # Created by `pipx`
 export PATH="$HOME/.local/bin:$PATH"
+
+# zoxide
+eval "$(zoxide init --cmd cd zsh)"

@@ -53,3 +53,6 @@ export VPN_PROFILE_NAME=""
 
 # Rust
 . "$HOME/.cargo/env"
+
+# Auto .env file loading, disable confirmation prompt
+export ZSH_DOTENV_PROMPT=false
