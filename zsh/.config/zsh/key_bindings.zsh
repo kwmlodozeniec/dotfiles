@@ -1,6 +1,6 @@
 # [Ctrl-r] - Search backward incrementally for a specified string.
 # The string may begin with ^ to anchor the search to the beginning of the line.
-# bindkey '^r' history-incremental-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 # [Ctrl-Delete] - delete whole forward-word
 bindkey -M emacs '^[[3;5~' kill-word
@@ -18,4 +18,4 @@ bindkey -M viins '^[[1;5D' backward-word
 bindkey -M vicmd '^[[1;5D' backward-word
 
 # [Ctrl-f] - Tmux sessions script
-bindkey -s '^f' "tmux-sessions\n"
+bindkey -s '^F' "tmux-sessions\n"

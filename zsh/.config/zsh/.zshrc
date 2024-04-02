@@ -7,13 +7,6 @@ elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# Oh-my-posh
-# eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/kwm.omp.json)"
-# eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/gruvbox.omp.json)"
-
-# Starship
-eval "$(starship init zsh)"
-
 fpath=($ZDOTDIR/plugins $fpath)
 
 # Navigation
@@ -77,5 +70,8 @@ source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
 # Created by `pipx`
 export PATH="$HOME/.local/bin:$PATH"
 
+# Starship prompt
+eval "$(starship init zsh)"
+
 # zoxide
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh --cmd cd)"
