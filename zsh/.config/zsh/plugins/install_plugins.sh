@@ -7,4 +7,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/plugins/
 git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-autosuggestions
 
 # ZSH auto .env file loading
-git clone https://github.com/nocttuam/autodotenv $ZDOTDIR/plugins/autodotenv
+git clone https://github.com/kwmlodozeniec/autodotenv $ZDOTDIR/plugins/autodotenv
