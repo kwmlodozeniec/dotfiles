@@ -1,0 +1,19 @@
+[core]
+    editor = code --wait
+    symlinks = true
+    excludesfile = ~/.gitignore-global
+[merge]
+    tool = code
+[mergetool "code"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+[includeIf "gitdir:~/private/"]
+  path = ~/.gitconfig-personal
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig-work
+[init]
+    defaultBranch = main
