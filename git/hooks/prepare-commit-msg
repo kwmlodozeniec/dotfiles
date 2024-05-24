@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Get the current branch name
+branch_name=$(git symbolic-ref --short HEAD)
+
+# Skip this on specific branches
+default_skip_branches="master develop test main"
+
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+    skip_branches=${default_skip_branches}
+else
+    skip_branches=$BRANCHES_TO_SKIP
+fi
+
+for branch in ${skip_branches}; do
+    if [ "$branch_name" = "$branch" ]; then
+        exit 0
+    fi
+done
+
+# Prefix to add to the commit
+prefix="${branch_name}:"
+
+# Path to the commit message file
+commit_msg_file=$(git rev-parse --git-dir)/COMMIT_EDITMSG
+
+# Check if the prefix is alraedy in the commit message to avoid duplicate prefixes
+if ! grep -q "^${prefix}" "${commit_msg_file}"; then
+    # Add the prefix to the commit message
+    sed -i.bak -e "1s/^/${prefix} /" "${commit_msg_file}"
+fi
