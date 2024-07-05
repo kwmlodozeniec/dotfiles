@@ -8,3 +8,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/plugins/zsh-
 
 # ZSH auto .env file loading
 git clone https://github.com/kwmlodozeniec/autodotenv $ZDOTDIR/plugins/autodotenv
+
+# FZF for git objects
+git clone https://github.com/junegunn/fzf-git.sh $ZDOTDIR/plugins/fzf-git
