@@ -55,7 +55,9 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # Fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
+# FZF for git objects
+source $ZDOTDIR/plugins/fzf-git/fzf-git.sh
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
