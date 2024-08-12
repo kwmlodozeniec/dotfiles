@@ -75,5 +75,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Starship prompt
 eval "$(starship init zsh)"
 
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/krzysztof/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
 # zoxide
 eval "$(zoxide init zsh --cmd cd)"

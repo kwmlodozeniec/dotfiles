@@ -17,9 +17,6 @@ export HISTTIMEFORMAT="[%d/%m/%y %T] "         # Timestamp format
 # PATH
 export PATH="$HOME/go/bin:$PATH" # GO
 
-# Rootless docker
-export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
-
 # Personal VARs
 export FIRSTNAME=""
 export LASTNAME=""
