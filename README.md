@@ -136,3 +136,11 @@ Config files for [starship prompt](https://starship.rs/).
 ```bash
 stow -v -R -t ~ starship
 ```
+
+### `wezterm`
+
+Config files for [wezterm terminal](https://wezfurlong.org/wezterm/index.html)
+
+```bash
+stow -v -R -t ~ wezterm
+```
