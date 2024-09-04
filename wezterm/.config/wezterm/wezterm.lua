@@ -152,6 +152,14 @@ config.keys = { -- Send ESC+b and ESC+f sequences, which is used
         key = "a",
         mods = "CTRL"
     }
+}, {
+    key = "PageUp",
+    mods = "CTRL",
+    action = wezterm.action.ActivateTabRelative(-1)
+}, {
+    key = "PageDown",
+    mods = "CTRL",
+    action = wezterm.action.ActivateTabRelative(1)
 }, move_to_pane("DownArrow", "Down"), move_to_pane("UpArrow", "Up"), move_to_pane("LeftArrow", "Left"),
 move_to_pane("RightArrow", "Right"), {
     -- When we push LEADER+r
