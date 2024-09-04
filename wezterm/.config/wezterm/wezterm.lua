@@ -32,7 +32,66 @@ local function segments_for_right_status(window)
     return {window:active_workspace()}
 end
 
-wezterm.on('update-status', function(window, _)
+local function move_to_pane(key, direction)
+    return {
+        key = key,
+        mods = "OPT",
+        action = wezterm.action.ActivatePaneDirection(direction)
+    }
+end
+
+local function resize_pane(key, direction)
+    return {
+        key = key,
+        action = wezterm.action.AdjustPaneSize {direction, 5}
+    }
+end
+
+-- Remove all path components and return only the last value
+local function remove_abs_path(path)
+    return path:gsub("(.*[/\\])(.*)", "%2")
+end
+
+-- Return the Tab's current working directory
+local function get_cwd(tab)
+    return tab.active_pane.current_working_dir.file_path or ""
+end
+
+-- Return the pretty path of the tab's current working directory
+local function get_display_cwd(tab)
+    local current_dir = get_cwd(tab)
+    return remove_abs_path(current_dir)
+end
+
+-- Pretty format the tab title
+local function format_title(tab)
+    local cwd = get_display_cwd(tab)
+
+    return string.format(" %s ", cwd)
+end
+
+-- Returns manually set title (from `tab:set_title()` or `wezterm cli set-tab-title`) or creates a new one
+local function get_tab_title(tab)
+    local title = tab.tab_title
+    if title and #title > 0 then
+        return title
+    end
+    return format_title(tab)
+end
+
+-- On format tab title events, override the default handling to return a custom title
+-- Docs: https://wezfurlong.org/wezterm/config/lua/window-events/format-tab-title.html
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
+    local title = get_tab_title(tab)
+    if tab.is_active then
+        return {{
+            Text = title
+        }}
+    end
+    return title
+end)
+
+wezterm.on('update-status', function(window, pane, _)
     local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
     local segments = segments_for_right_status(window)
 
@@ -98,21 +157,6 @@ wezterm.on('update-status', function(window, _)
 
     window:set_right_status(wezterm.format(elements))
 end)
-
-local function move_to_pane(key, direction)
-    return {
-        key = key,
-        mods = "OPT",
-        action = wezterm.action.ActivatePaneDirection(direction)
-    }
-end
-
-local function resize_pane(key, direction)
-    return {
-        key = key,
-        action = wezterm.action.AdjustPaneSize {direction, 5}
-    }
-end
 
 config.keys = { -- Send ESC+b and ESC+f sequences, which is used
 -- for telling your shell to jump back/forward
