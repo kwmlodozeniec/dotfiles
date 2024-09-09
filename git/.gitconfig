@@ -17,3 +17,10 @@
   path = ~/.gitconfig-work
 [init]
     defaultBranch = main
+[push]
+    autoSetupRemote = true
+    default = current
+[alias]
+    undo = reset --soft HEAD^
+[core]
+    pager = delta
