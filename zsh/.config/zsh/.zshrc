@@ -50,10 +50,6 @@ source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Key bindings
 source $ZDOTDIR/key_bindings.zsh
 
-# Pyenv
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # Fuzzy finder
 source <(fzf --zsh)
 # FZF for git objects
@@ -75,9 +71,8 @@ export PATH="$HOME/.local/bin:$PATH"
 # Starship prompt
 eval "$(starship init zsh)"
 
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/krzysztof/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
 # zoxide
 eval "$(zoxide init zsh --cmd cd)"
+
+# uv
+eval "$(uvx --generate-shell-completion zsh)"
