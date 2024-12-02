@@ -1,0 +1,18 @@
+--cask font-monaspace
+--cask latest
+--cask raycast
+--cask shottr
+--cask wezterm
+eza
+fnm
+fzf
+golang
+k6
+nvim
+pearcleaner
+raycast
+rust
+shortcat
+starship
+uv
+zoxide
