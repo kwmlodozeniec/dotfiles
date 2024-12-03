@@ -14,5 +14,6 @@ raycast
 rust
 shortcat
 starship
+stats
 uv
 zoxide
