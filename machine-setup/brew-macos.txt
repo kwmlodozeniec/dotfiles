@@ -8,6 +8,7 @@ eza
 fnm
 fzf
 golang
+httpie
 k6
 nvim
 pearcleaner
