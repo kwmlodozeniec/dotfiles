@@ -58,4 +58,7 @@ export ZSH_DOTENV_PROMPT=false
 # Colima
 export COLIMA_VM="default"
 export COLIMA_VM_SOCKET="${HOME}/.colima/${COLIMA_VM}/docker.sock"
-export DOCKER_HOST="unix://${COLIMA_VM_SOCKET}"
+# export DOCKER_HOST="unix://${COLIMA_VM_SOCKET}"
+
+# Auto dotenv sourcing
+export AUTODOTENV_SKIP_CONFIRM=true
