@@ -43,6 +43,9 @@ symbol = " "
 [git_branch]
 symbol = " "
 
+[gcloud]
+disabled = true
+
 [golang]
 symbol = " "
 
