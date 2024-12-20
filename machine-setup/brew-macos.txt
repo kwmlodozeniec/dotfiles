@@ -4,6 +4,7 @@
 --cask raycast
 --cask shottr
 --cask wezterm
+bat
 eza
 fnm
 fzf
