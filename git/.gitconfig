@@ -25,6 +25,8 @@
 [core]
     pager = delta
 [gpg]
-	format = ssh
+    format = ssh
 [user]
-	signingkey = /Users/krzysztof/.ssh/id_ed25519.pub
+    signingkey = /Users/krzysztof/.ssh/id_ed25519.pub
+[commit]
+	gpgSign = true
