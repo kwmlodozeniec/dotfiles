@@ -144,3 +144,11 @@ Config files for [wezterm terminal](https://wezfurlong.org/wezterm/index.html)
 ```bash
 stow -v -R -t ~ wezterm
 ```
+
+### `ghostty`
+
+Config files for [ghostty terminal](https://ghostty.org/)
+
+```bash
+stow -v -R -t ~ ghostty
+```
