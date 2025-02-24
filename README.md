@@ -152,3 +152,13 @@ Config files for [ghostty terminal](https://ghostty.org/)
 ```bash
 stow -v -R -t ~ ghostty
 ```
+
+### `helix`
+
+Config files for [helix editor](https://helix-editor.com/)
+
+```bash
+stow -v -R -t ~ helix
+hx --grammar fetch
+hx --grammar build
+```
