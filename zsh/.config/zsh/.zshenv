@@ -49,9 +49,6 @@ export NVM_DIR="$HOME/.nvm"
 # VPN Profile
 export VPN_PROFILE_NAME=""
 
-# Rust
-. "$HOME/.cargo/env"
-
 # Auto .env file loading, disable confirmation prompt
 export ZSH_DOTENV_PROMPT=false
 
@@ -62,3 +59,6 @@ export COLIMA_VM_SOCKET="${HOME}/.colima/${COLIMA_VM}/docker.sock"
 
 # Auto dotenv sourcing
 export AUTODOTENV_SKIP_CONFIRM=true
+
+# Rust
+. "$HOME/.cargo/env"

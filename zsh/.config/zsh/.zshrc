@@ -68,6 +68,9 @@ source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
 # Created by `pipx`
 export PATH="$HOME/.local/bin:$PATH"
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # Starship prompt
 eval "$(starship init zsh)"
 
