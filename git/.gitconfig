@@ -1,3 +1,5 @@
+[init]
+    defaultBranch = main
 [core]
     editor = code --wait
     symlinks = true
@@ -15,6 +17,8 @@
   path = ~/.gitconfig-personal
 [includeIf "gitdir:~/work/"]
   path = ~/.gitconfig-work
+[includeIf "gitdir:/tmp/"]
+  path = ~/.gitconfig-tmp
 [init]
     defaultBranch = main
 [push]
@@ -29,4 +33,8 @@
 [user]
     signingkey = /Users/krzysztof/.ssh/id_ed25519.pub
 [commit]
-	gpgSign = true
+    gpgSign = true
+[rebase]
+    autosquash = true
+[alias]
+    fixup = "git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
