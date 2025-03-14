@@ -18,5 +18,7 @@ rust
 shortcat
 starship
 stats
+stow
+tree
 uv
 zoxide
