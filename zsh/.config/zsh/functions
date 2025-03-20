@@ -1,13 +1,13 @@
 #!/usr/bin/env zsh
 
 function make-env() {
-    local VENV_NAME="${1:-venv}"
+    local VENV_NAME="${1:-.venv}"
     python3 -m venv $VENV_NAME
     source $VENV_NAME/bin/activate
 }
 
 function activate-env() {
-    local VENV_NAME=${1:-venv}
+    local VENV_NAME=${1:-.venv}
     source $VENV_NAME/bin/activate
 }
 
@@ -37,28 +37,8 @@ function git-branch-delete() {
     git branch -D $1
 }
 
-function git-branch-checkout() {
-    git checkout $1
-}
-
-function gen-reqs-lockfile() {
-    local PIP_VERSION=21.1.3
-    local PIP_TOOLS=6.3.1
-    local POSTFIX=${1:-38}
-    local REQS_FILE=${2:-requirements.txt}
-
-    python -m pip install "pip==$PIP_VERSION" "pip-tools==$PIP_TOOLS"
-    python -m piptools compile --rebuild --allow-unsafe --generate-hashes --index-url=$ARTIFACTORY_URL --output-file=requirements.py$POSTFIX.lockfile $REQS_FILE
-}
-
-function gen-test-reqs-lockfile() {
-    local PIP_VERSION=21.1.3
-    local PIP_TOOLS=6.3.1
-    local POSTFIX=${1:-38}
-    local REQS_FILE=${2:-requirements-test.txt}
-
-    python -m pip install "pip==$PIP_VERSION" "pip-tools==$PIP_TOOLS"
-    python -m piptools compile --rebuild --allow-unsafe --generate-hashes --index-url=$ARTIFACTORY_URL --output-file=requirements-test.py$POSTFIX.lockfile $REQS_FILE
+function git-branch-switch() {
+    git switch $1
 }
 
 function load-env() {
