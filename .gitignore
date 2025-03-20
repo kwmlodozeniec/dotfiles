@@ -1,6 +1,7 @@
-.zhistory
-.zcompdump
-.zsh_history
+**/*/.zhistory
+**/*/.zcompdump*
+**/*/.zsh_history
 tmux/.config/tmux/plugins/*
+zsh/.config/zsh/plugins/**/
 .DS_Store
 .zsh_sessions
