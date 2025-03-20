@@ -10,7 +10,7 @@ fi
 fpath=($ZDOTDIR/plugins $fpath)
 
 # Navigation
-setopt AUTO_CD # Go to folder path without using cd.
+unsetopt AUTO_CD # Don't go to a directory without using cd
 
 setopt AUTO_PUSHD        # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS # Do not store duplicates in the stack.
