@@ -4,15 +4,6 @@ This repository holds various config files I use on my machine for some of the c
 
 ## Overview of directories
 
-### `nvim`
-
-Config files for [Neovim](https://neovim.io/) editor.
-This is based on [LazyVim](https://www.lazyvim.org/) base.
-
-```bash
-stow -v -R -t ~ nvim
-```
-
 ### `ohmyposh`
 
 My own [Oh My Posh](https://ohmyposh.dev/) prompt theme.
