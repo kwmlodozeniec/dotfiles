@@ -1,28 +1,73 @@
+# Set the theme for the editor.
 theme = "catppuccin_mocha"
 
 [editor]
+# Highlight the line where the cursor is located.
 cursorline = true
+
+# Enable support for different color modes (e.g., light/dark mode).
 color-modes = true
+
+# Enable 24-bit true color support for better color rendering.
 true-color = true
 
+# Show currently open buffers, only when more than one buffer is open.
+bufferline = "multiple"
+
+# Show rulers
+rulers = [100, 120]
+
+# Minimum severity to show a diagnostic after the end of a line
+end-of-line-diagnostics = "hint"
+
 [editor.cursor-shape]
+# Configure the cursor shape for different modes:
+# - "bar" for insert mode
+# - "block" for normal mode
+# - "underline" for select mode
 insert = "bar"
 normal = "block"
 select = "underline"
 
 [editor.indent-guides]
+# Enable rendering of indent guides to visually indicate code structure.
 render = true
 
 [editor.gutters.line-numbers]
+# Set the minimum width of the line number gutter. This ensures proper alignment of line numbers.
 min-width = 1
 
 [editor.whitespace]
+# Configure how whitespace characters are rendered in the editor.
+# Options: "none", "trailing", "all"
 render = "all"
 
 [editor.whitespace.characters]
+# Customize the symbols used to represent different whitespace characters:
+# - "space" represents spaces (e.g., "·")
+# - "nbsp" represents non-breaking spaces (e.g., "⍽")
+# - "nnbsp" represents narrow non-breaking spaces (e.g., "␣")
+# - "tab" represents tabs (e.g., "→")
+# - "newline" represents newlines (e.g., "⏎")
+# - "tabpad" represents padding for tabs (e.g., "→···")
 space = "·"
 nbsp = "⍽"
 nnbsp = "␣"
 tab = "→"
 newline = "⏎"
 tabpad = " "  # Tabs will look like "→···"
+
+[editor.lsp]
+# Show LSP messages in the status line
+display-messages = true
+display-inlay-hints =true
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # Show inline diagnostics when the cursor is on the line
+other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
