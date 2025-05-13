@@ -65,9 +65,15 @@ display-inlay-hints =true
 [editor.statusline]
 left = ["mode", "spinner", "version-control"]
 center = ["file-name"]
-right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+right = ["diagnostics", "selections", "position", "position-percentage", "file-encoding", "file-line-ending", "file-type"]
 separator = "│"
 
 [editor.inline-diagnostics]
 cursor-line = "warning" # Show inline diagnostics when the cursor is on the line
 other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
+
+[keys.normal]
+A-left = "jump_view_left" # Move to left split
+A-right = "jump_view_right" # Move to right split
+A-up = "jump_view_up" # Move to split above
+A-down = "jump_view_down" # Move to split below
