@@ -23,9 +23,9 @@ shebangs = ["rust-script", "cargo"]
 auto-format = true
 comment-tokens = ["//", "///", "//!"]
 block-comment-tokens = [
-    { start = "/*", end = "*/" },
-    { start = "/**", end = "*/" },
-    { start = "/*!", end = "*/" },
+  { start = "/*", end = "*/" },
+  { start = "/**", end = "*/" },
+  { start = "/*!", end = "*/" },
 ]
 language-servers = ["rust-analyzer"]
 indent = { tab-width = 4, unit = "    " }
@@ -40,3 +40,20 @@ args = ["server"]
 name = "python"
 language-servers = ["ruff"]
 auto-format = true
+
+[[language]]
+name = "yaml"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+
+[[language]]
+name = "toml"
+auto-format = true
+formatter = { command = "taplo", args = ["format", "-"] }
+
+[[language]]
+name = "json"
+formatter = { command = 'prettier', args = ["--parser", "json"] }
+
+[language-server.gopls.config]
+gofumpt = true
