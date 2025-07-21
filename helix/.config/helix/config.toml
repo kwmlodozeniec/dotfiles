@@ -83,8 +83,18 @@ separator = "│"
 cursor-line = "warning" # Show inline diagnostics when the cursor is on the line
 other-lines = "disable" # Don't expand diagnostics unless the cursor is on the line
 
+[editor.file-picker]
+hidden = false
+
 [keys.normal]
-A-left = "jump_view_left"   # Move to left split
+A-left = "jump_view_left" # Move to left split
 A-right = "jump_view_right" # Move to right split
-A-up = "jump_view_up"       # Move to split above
-A-down = "jump_view_down"   # Move to split below
+A-up = "jump_view_up" # Move to split above
+A-down = "jump_view_down" # Move to split below
+C-up = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
+C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
