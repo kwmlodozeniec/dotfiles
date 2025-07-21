@@ -85,6 +85,7 @@ other-lines = "disable" # Don't expand diagnostics unless the cursor is on the l
 
 [editor.file-picker]
 hidden = false
+git-ignore = false
 
 [keys.normal]
 A-left = "jump_view_left" # Move to left split
@@ -98,3 +99,5 @@ C-up = [
   "paste_before",
 ]
 C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+y = "yank_main_selection_to_clipboard"
+p = "paste_clipboard_before"
