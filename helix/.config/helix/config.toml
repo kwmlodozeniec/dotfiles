@@ -92,12 +92,34 @@ A-left = "jump_view_left" # Move to left split
 A-right = "jump_view_right" # Move to right split
 A-up = "jump_view_up" # Move to split above
 A-down = "jump_view_down" # Move to split below
-C-up = [
+C-A-up = [
   "extend_to_line_bounds",
   "delete_selection",
   "move_line_up",
   "paste_before",
 ]
-C-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-A-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 y = "yank_main_selection_to_clipboard"
 p = "paste_clipboard_before"
+S-left = "extend_char_left"
+S-right = "extend_char_right"
+S-end = "extend_to_line_end"
+S-home = "extend_to_line_start"
+C-left = "move_prev_word_end"
+C-right = "move_next_word_start"
+C-end = "goto_file_end"
+C-home = "goto_file_start"
+# Set search to selection, add new selection at next occurrence
+C-d = ["search_selection", "extend_search_next"]
+
+[keys.insert]
+S-right = "extend_char_right"
+S-left = "extend_char_left"
+C-left = "move_prev_word_end"
+C-right = "move_next_word_start"
+
+[keys.select]
+C-left = "extend_prev_word_end"
+C-right = "extend_next_word_start"
+S-left = "extend_char_left"
+S-right = "extend_char_right"
