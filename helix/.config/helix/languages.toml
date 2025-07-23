@@ -70,8 +70,11 @@ args = ["server"]
 
 [[language]]
 name = "python"
-language-servers = ["ruff"]
+language-servers = ["pyright", "ruff"]
 auto-format = true
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
 
 [[language]]
 name = "yaml"
