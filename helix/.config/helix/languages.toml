@@ -59,7 +59,7 @@ block-comment-tokens = [
   { start = "/**", end = "*/" },
   { start = "/*!", end = "*/" },
 ]
-language-servers = ["rust-analyzer"]
+language-servers = ["rust-analyzer", "codebook"]
 indent = { tab-width = 4, unit = "    " }
 persistent-diagnostic-sources = ["rustc", "clippy"]
 formatter = { command = "rustfmt" }
@@ -68,9 +68,13 @@ formatter = { command = "rustfmt" }
 command = "ruff"
 args = ["server"]
 
+[language-server.codebook]
+command = "codebook-lsp"
+args = ["serve"]
+
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff"]
+language-servers = ["pyright", "ruff", "codebook"]
 auto-format = true
 
 [language-server.pyright.config.python.analysis]
@@ -79,16 +83,26 @@ typeCheckingMode = "basic"
 [[language]]
 name = "yaml"
 auto-format = true
+language-servers = ["codebook"]
 formatter = { command = "prettier", args = ["--parser", "yaml"] }
 
 [[language]]
 name = "toml"
 auto-format = true
+language-servers = ["codebook"]
 formatter = { command = "taplo", args = ["format", "-"] }
 
 [[language]]
 name = "json"
+language-servers = ["codebook"]
 formatter = { command = 'prettier', args = ["--parser", "json"] }
+
+[[language]]
+name = "markdown"
+auto-format = true
+language-servers = ["codebook"]
+formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+
 
 [language-server.gopls.config]
 gofumpt = true
