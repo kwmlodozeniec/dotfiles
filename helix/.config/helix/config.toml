@@ -111,6 +111,7 @@ C-end = "goto_file_end"
 C-home = "goto_file_start"
 # Set search to selection, add new selection at next occurrence
 C-d = ["search_selection", "extend_search_next"]
+C-s = ":write"
 
 [keys.insert]
 S-right = "extend_char_right"
