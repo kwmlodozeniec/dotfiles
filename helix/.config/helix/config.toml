@@ -86,6 +86,9 @@ other-lines = "disable" # Don't expand diagnostics unless the cursor is on the l
 [editor.file-picker]
 hidden = false
 
+[editor.soft-wrap]
+enable = true
+
 [keys.normal]
 A-left = "jump_view_left" # Move to left split
 A-right = "jump_view_right" # Move to right split
