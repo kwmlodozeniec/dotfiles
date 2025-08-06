@@ -85,7 +85,6 @@ other-lines = "disable" # Don't expand diagnostics unless the cursor is on the l
 
 [editor.file-picker]
 hidden = false
-git-ignore = false
 
 [keys.normal]
 A-left = "jump_view_left" # Move to left split

@@ -1,3 +1,9 @@
-.vscode
+.vscode/
 pyrightconfig.json
 .python-version
+.mypy_cache/
+.venv/
+__pycache__/
+.DS_Store
+Thumbs.db
+IGNORED_DIR/
