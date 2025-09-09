@@ -8,6 +8,9 @@ then
   compinit
 fi
 
+# Use podman completions for docker
+compdef _podman docker
+
 # Load more completions
 fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
 
@@ -74,7 +77,3 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*' keep-prefix true
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
-## For kubernetes
-# source $ZDOTDIR/plugins/kubectl-completion/_kubectl
-# zstyle ':completion:*:*:kubectl:*' list-grouped false
