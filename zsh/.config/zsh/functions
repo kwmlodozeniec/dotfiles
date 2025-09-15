@@ -52,11 +52,213 @@ function unload-env() {
 }
 
 function cleanup-merged-branches() {
-    git fetch --prune
-    branches=$(git branch -vv | grep ": gone]" | grep -v "\*" | awk '{ print $1 }')
-    if [ -n "$branches" ]; then
-        while IFS= read -r branch; do echo "git branch -D $branch"; done <<<"$branches"
+  # Usage: cleanup-merged-branches [--delete|-d] [--stale] [--into BRANCH]
+  #        [--remote REMOTE] [--yes] [remote]
+  # Dry-run by default. Use --delete to actually remove branches.
+  set -euo pipefail
+
+  delete=0
+  stale_only=0
+  remote_fetch=""
+  into_branch=""
+  confirm=0
+  remote_arg="origin"
+
+  usage() {
+    cat <<EOF
+Usage: cleanup-merged-branches [--delete|-d] [--stale] [--into BRANCH]
+                                [--remote REMOTE] [--yes] [remote-name]
+Options:
+    -d, --delete     actually delete branches (default: dry-run)
+    --stale          only targets local branches whose upstream is gone
+    --into BRANCH    consider branches merged into BRANCH (default: repo default)
+    --remote REMOTE  use REMOTE for fetching (default: origin if present)
+    --yes            skip confirmation when deleting
+    remote-name      alternative git remote name to fetch from (positional)
+EOF
+  }
+
+  # parse args (simple)
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -d|--delete) delete=1; shift ;;
+      --stale) stale_only=1; shift ;;
+      --into) into_branch="$2"; shift 2 ;;
+      --remote) remote_fetch="$2"; shift 2 ;;
+      --yes) confirm=1; shift ;;
+      -h|--help) usage; return 0 ;;
+      --) shift; break ;;
+      -*)
+        echo "Unknown option: $1" >&2
+        return 2
+        ;;
+      *)
+        remote_arg="$1"
+        shift
+        ;;
+    esac
+  done
+
+  # Ensure inside a git repo
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Not inside a git repository." >&2
+    return 1
+  fi
+
+  # pick fetch target
+  if [[ -n "$remote_fetch" ]]; then
+    fetch_target="$remote_fetch"
+  else
+    # use positional remote if provided and exists, else origin if exists, else empty
+    if git remote | grep -q "^${remote_arg}\$"; then
+      fetch_target="$remote_arg"
+    elif git remote | grep -q '^origin$'; then
+      fetch_target="origin"
     else
-        echo "No merged branches found"
+      fetch_target=""
     fi
+  fi
+
+  if [[ -n "$fetch_target" ]]; then
+    echo "Fetching from '$fetch_target' (prune)..."
+    git fetch --prune "$fetch_target"
+  else
+    echo "No remote to fetch/prune (no 'origin' and none provided). Skipping fetch."
+  fi
+
+  # detect default branch if not provided
+  detect_default_branch() {
+    # try origin HEAD
+    if git remote show origin >/dev/null 2>&1; then
+      default=$(git remote show origin 2>/dev/null | awk -F': ' '/HEAD branch/ {print $2; exit}')
+      if [[ -n "$default" ]]; then
+        printf '%s' "$default"
+        return
+      fi
+    fi
+    # try common local names
+    if git show-ref --verify --quiet refs/heads/main; then
+      printf 'main'
+      return
+    fi
+    if git show-ref --verify --quiet refs/heads/master; then
+      printf 'master'
+      return
+    fi
+    # fallback to current branch if available
+    if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
+      git symbolic-ref --short HEAD
+      return
+    fi
+    printf 'main'
+  }
+
+  if [[ -z "$into_branch" ]]; then
+    into_branch="$(detect_default_branch)"
+  fi
+
+  # ensure target exists locally (try fetch if necessary)
+  if ! git rev-parse --verify --quiet "$into_branch" >/dev/null 2>&1; then
+    if [[ -n "$fetch_target" ]]; then
+      git fetch "$fetch_target" "$into_branch":"$into_branch" >/dev/null 2>&1 || true
+    fi
+  fi
+  if ! git rev-parse --verify --quiet "$into_branch" >/dev/null 2>&1; then
+    echo "Could not resolve target branch '$into_branch'." >&2
+    return 1
+  fi
+
+  # build candidate list
+  candidates=()
+  if [[ $stale_only -eq 1 ]]; then
+    # local branches whose upstream is gone
+    while IFS= read -r line; do
+      candidates+=("$line")
+    done < <(git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads \
+               | awk '$2 == "[gone]" {print $1}')
+  else
+    # branches merged into target
+    while IFS= read -r b; do
+      candidates+=("$b")
+    done < <(git branch --merged "$into_branch" --format='%(refname:short)')
+  fi
+
+  # current branch and protections
+  current_branch=""
+  if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
+    current_branch=$(git symbolic-ref --short HEAD)
+  fi
+  protected=("$into_branch" "$current_branch")
+
+  # filter candidates: remove empty, protected, HEAD, refs/*, duplicates
+  filtered=()
+  for b in "${candidates[@]}"; do
+    [[ -z "$b" ]] && continue
+    [[ "$b" == "HEAD" ]] && continue
+    [[ "$b" == refs/* ]] && continue
+    skip=0
+    for p in "${protected[@]}"; do
+      [[ -n "$p" && "$b" == "$p" ]] && skip=1 && break
+    done
+    [[ $skip -eq 1 ]] && continue
+    # check duplicates
+    dup=0
+    for exist in "${filtered[@]}"; do
+      [[ "$exist" == "$b" ]] && dup=1 && break
+    done
+    [[ $dup -eq 0 ]] && filtered+=("$b")
+  done
+
+  if [[ ${#filtered[@]} -eq 0 ]]; then
+    echo "No branches to delete."
+    return 0
+  fi
+
+  echo "Will operate on the following branches (upstream info shown if available):"
+  for b in "${filtered[@]}"; do
+    up="$(git for-each-ref --format='%(upstream:short)' refs/heads/"$b" 2>/dev/null || true)"
+    if [[ -n "$up" ]]; then
+      printf "  %s\t(upstream: %s)\n" "$b" "$up"
+    else
+      printf "  %s\n" "$b"
+    fi
+  done
+
+  if [[ $delete -eq 0 ]]; then
+    echo
+    echo "Dry run (no deletion). To actually delete, re-run with --delete"
+    echo "Commands:"
+    for b in "${filtered[@]}"; do
+      printf "git branch -D %q\n" "$b"
+    done
+    return 0
+  fi
+
+  if [[ $confirm -eq 0 ]]; then
+    printf 'Delete %d branches? [y/N] ' "${#filtered[@]}"
+    read -r ans
+    case "${ans:-}" in
+      y|Y|yes|Yes) ;;
+      *) echo "Aborting."; return 0 ;;
+    esac
+  fi
+
+  failures=0
+  for b in "${filtered[@]}"; do
+    if git branch -D -- "$b"; then
+      echo "Deleted $b"
+    else
+      echo "Failed to delete $b" >&2
+      failures=$((failures + 1))
+    fi
+  done
+
+  if [[ $failures -gt 0 ]]; then
+    echo "Completed with $failures failures." >&2
+    return 1
+  fi
+
+  echo "Done."
 }
+
+alias cmb="cleanup-merged-branches"
