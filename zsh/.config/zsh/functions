@@ -55,7 +55,7 @@ function cleanup-merged-branches() {
   # Usage: cleanup-merged-branches [--delete|-d] [--stale] [--into BRANCH]
   #        [--remote REMOTE] [--yes] [remote]
   # Dry-run by default. Use --delete to actually remove branches.
-  set -euo pipefail
+  set -o pipefail
 
   delete=0
   stale_only=0
