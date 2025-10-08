@@ -20,7 +20,6 @@ alias ll="ls -ahl --color=auto"
 alias ..="cd .."
 alias mv="mv -i"
 alias cp="cp -i"
-alias rm="rm -i"
 alias ln="ln -i"
 alias upgrade-pyenv="cd $HOME/.pyenv && git pull && cd -"
 alias clear-ipython-history="rm -f $HOME/.ipython/profile_default/history.sqlite"
@@ -96,7 +95,6 @@ alias kill="coreutils kill"
 alias link="coreutils link"
 alias ln="coreutils ln"
 alias logname="coreutils logname"
-# alias ls="coreutils ls" using eza
 alias md5sum="coreutils md5sum"
 alias mkdir="coreutils mkdir"
 alias mkfifo="coreutils mkfifo"
@@ -120,7 +118,17 @@ alias ptx="coreutils ptx"
 alias pwd="coreutils pwd"
 alias readlink="coreutils readlink"
 alias realpath="coreutils realpath"
-alias rm="coreutils rm"
+alias rm='rm_safe'
+rm_safe() {
+  if [[ "$*" =~ "-rf" ]]; then
+    echo "⚠️  Dangerous operation blocked: rm -rf detected."
+    echo "Use 'command rm -rf' if you really know what you're doing."
+    return 1
+  else
+    # command coreutils rm -i "$@"
+    trash -i "$@"
+  fi
+}
 alias rmdir="coreutils rmdir"
 alias seq="coreutils seq"
 alias sha1sum="coreutils sha1sum"
