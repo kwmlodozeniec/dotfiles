@@ -1,1 +1,5 @@
 #!/usr/bin/env zsh
+alias gitlab-pipelines="$HOME/.config/scripts/gitlab-project --host gitlab.uk.universalquantum.org"
+alias gitlab-merge-requests="$HOME/.config/scripts/gitlab-project --host gitlab.uk.universalquantum.org --mr"
+alias glp="gitlab-pipelines"
+alias glmr="gitlab-merge-requests"
