@@ -26,7 +26,7 @@ function git-push-force() {
 }
 
 function git-fetch-prune() {
-    git fetch --prune
+    git fetch --prune --all --tags
 }
 
 function git-branch-list() {
