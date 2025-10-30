@@ -9,42 +9,6 @@ inlayHints.discriminantHints.enable = "fieldless"
 inlayHints.lifetimeElisionHints.enable = "skip_trivial"
 inlayHints.typeHints.hideClosureInitialization = false
 
-[[grammar]]
-name = "rust"
-source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "18b0515fca567f5a10aee9978c6d2640e878671a" }
-
-[[grammar]]
-name = "python"
-source = { git = "https://github.com/tree-sitter/py-tree-sitter", rev = "85dcfdfe39aaeab12935289a8f7d7353d21fbda9" }
-
-[[grammar]]
-name = "bash"
-source = { git = "https://github.com/tree-sitter/tree-sitter-bash", rev = "56b54c61fb48bce0c63e3dfa2240b5d274384763" }
-
-[[grammar]]
-name = "css"
-source = { git = "https://github.com/tree-sitter/tree-sitter-css", rev = "c0d581e32d183a536731ed6c3a72758b27e20411" }
-
-[[grammara]]
-name = "typescript"
-source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "f975a621f4e7f532fe322e13c4f79495e0a7b2e7" }
-
-[[grammar]]
-name = "html"
-source = { git = "https://github.com/tree-sitter/tree-sitter-html", rev = "5a5ca8551a179998360b4a4ca2c0f366a35acc03" }
-
-[[grammar]]
-name = "json"
-source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "ee35a6ebefcef0c5c416c0d1ccec7370cfca5a24" }
-
-[[grammar]]
-name = "javascript"
-source = { git = "https://github.com/tree-sitter/tree-sitter-javascript", rev = "3a837b6f3658ca3618f2022f8707e29739c91364" }
-
-[[grammar]]
-name = "go"
-source = { git = "https://github.com/tree-sitter/go-tree-sitter", rev = "5432ade78ad6bde797bcdaa272a5953eaba83971" }
-
 [[language]]
 name = "rust"
 scope = "source.rust"
@@ -64,10 +28,6 @@ indent = { tab-width = 4, unit = "    " }
 persistent-diagnostic-sources = ["rustc", "clippy"]
 formatter = { command = "rustfmt" }
 
-[language-server.ruff]
-command = "ruff"
-args = ["server"]
-
 [language-server.codebook]
 command = "codebook-lsp"
 args = ["serve"]
@@ -76,6 +36,10 @@ args = ["serve"]
 name = "python"
 language-servers = ["pyright", "ruff", "codebook"]
 auto-format = true
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
 
 [language-server.pyright.config.python.analysis]
 typeCheckingMode = "basic"
@@ -102,7 +66,6 @@ name = "markdown"
 auto-format = true
 language-servers = ["codebook"]
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
-
 
 [language-server.gopls.config]
 gofumpt = true
