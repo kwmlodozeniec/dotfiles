@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Editor
-export VISUAL="nvim"
+export VISUAL="hx"
 export EDITOR="$VISUAL"
 
 # zsh
