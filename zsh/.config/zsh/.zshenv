@@ -5,7 +5,6 @@ export VISUAL="hx"
 export EDITOR="$VISUAL"
 
 # zsh
-export SHELL="/usr/bin/zsh"
 export ZDOTDIR="$HOME/.config/zsh"
 
 # PATH
