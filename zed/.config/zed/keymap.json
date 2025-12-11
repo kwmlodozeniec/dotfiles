@@ -1,60 +1,53 @@
-// Zed keymap
-//
-// For information on binding keys, see the Zed
-// documentation: https://zed.dev/docs/key-bindings
-//
-// To see the default key bindings run `zed: open default keymap`
-// from the command palette.
 [
-    {
-        "context": "Workspace",
-        "bindings": {
-            "shift shift": "file_finder::Toggle",
-            "ctrl ctrl": "command_palette::Toggle"
-        }
-    },
-    {
-        "context": "Workspace && os == windows",
-        "bindings": {
-            "ctrl-b": "workspace::ToggleRightDock",
-            "ctrl-alt-b": "workspace::ToggleLeftDock"
-        }
-    },
-    {
-        "context": "Workspace && os == macos",
-        "bindings": {
-            "cmd-b": "workspace::ToggleRightDock",
-            "cmd-alt-b": "workspace::ToggleLeftDock"
-        }
-    },
-    {
-        "context": "(Editor && !edit_prediction)",
-        "bindings": {
-            "alt-/": "editor::ShowEditPrediction",
-            "ctrl-alt-right": [
-                "workspace::MoveItemToPaneInDirection",
-                {
-                    "direction": "right"
-                }
-            ],
-            "ctrl-alt-left": [
-                "workspace::MoveItemToPaneInDirection",
-                {
-                    "direction": "left"
-                }
-            ],
-            "ctrl-alt-up": [
-                "workspace::MoveItemToPaneInDirection",
-                {
-                    "direction": "up"
-                }
-            ],
-            "ctrl-alt-down": [
-                "workspace::MoveItemToPaneInDirection",
-                {
-                    "direction": "down"
-                }
-            ]
-        }
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "file_finder::Toggle",
+      "ctrl ctrl": "command_palette::Toggle"
     }
+  },
+  {
+    "context": "Workspace && os == windows",
+    "bindings": {
+      "ctrl-b": "workspace::ToggleRightDock",
+      "ctrl-alt-b": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "Workspace && os == macos",
+    "bindings": {
+      "cmd-b": "workspace::ToggleRightDock",
+      "cmd-alt-b": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "(Editor && !edit_prediction)",
+    "bindings": {
+      "alt-/": "editor::ShowEditPrediction",
+      "ctrl-alt-right": [
+        "workspace::MoveItemToPaneInDirection",
+        {
+          "direction": "right"
+        }
+      ],
+      "ctrl-alt-left": [
+        "workspace::MoveItemToPaneInDirection",
+        {
+          "direction": "left"
+        }
+      ],
+      "ctrl-alt-up": [
+        "workspace::MoveItemToPaneInDirection",
+        {
+          "direction": "up"
+        }
+      ],
+      "ctrl-alt-down": [
+        "workspace::MoveItemToPaneInDirection",
+        {
+          "direction": "down"
+        }
+      ]
+    }
+  }
 ]
