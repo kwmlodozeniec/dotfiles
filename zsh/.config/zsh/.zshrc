@@ -88,3 +88,6 @@ eval "$(zoxide init zsh --cmd cd)"
 
 # uv
 eval "$(uvx --generate-shell-completion zsh)"
+
+# opencode
+export PATH=/home/krzysztof/.opencode/bin:$PATH
