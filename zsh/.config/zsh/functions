@@ -18,7 +18,7 @@ function git-short-log() {
 
 function git-rebase() {
     local NUMBER="${1:-10}"
-    git rebase -i HEAD~$NUMBER
+    git rebase --interactive HEAD~$NUMBER
 }
 
 function git-push-force() {
@@ -30,14 +30,15 @@ function git-fetch-prune() {
 }
 
 function git-branch-list() {
-    git --no-pager branch -al
+    git --no-pager branch --all --list
 }
 
 function git-branch-delete() {
-    git branch -D $1
+    git branch --delete --force $1
 }
 
-function git-branch-switch() {
+function git-branch-switch() {clear
+
     git switch $1
 }
 
@@ -78,7 +79,6 @@ Options:
 EOF
   }
 
-  # parse args (simple)
   while [[ $# -gt 0 ]]; do
     case "$1" in
       -d|--delete) delete=1; shift ;;
@@ -99,17 +99,14 @@ EOF
     esac
   done
 
-  # Ensure inside a git repo
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     echo "Not inside a git repository." >&2
     return 1
   fi
 
-  # pick fetch target
   if [[ -n "$remote_fetch" ]]; then
     fetch_target="$remote_fetch"
   else
-    # use positional remote if provided and exists, else origin if exists, else empty
     if git remote | grep -q "^${remote_arg}\$"; then
       fetch_target="$remote_arg"
     elif git remote | grep -q '^origin$'; then
@@ -126,17 +123,15 @@ EOF
     echo "No remote to fetch/prune (no 'origin' and none provided). Skipping fetch."
   fi
 
-  # detect default branch if not provided
   detect_default_branch() {
-    # try origin HEAD
     if git remote show origin >/dev/null 2>&1; then
-      default=$(git remote show origin 2>/dev/null | awk -F': ' '/HEAD branch/ {print $2; exit}')
+      default=$(git remote show origin 2>/dev/null \
+        | awk -F': ' '/HEAD branch/ {print $2; exit}')
       if [[ -n "$default" ]]; then
         printf '%s' "$default"
         return
       fi
     fi
-    # try common local names
     if git show-ref --verify --quiet refs/heads/main; then
       printf 'main'
       return
@@ -145,7 +140,6 @@ EOF
       printf 'master'
       return
     fi
-    # fallback to current branch if available
     if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
       git symbolic-ref --short HEAD
       return
@@ -157,7 +151,6 @@ EOF
     into_branch="$(detect_default_branch)"
   fi
 
-  # ensure target exists locally (try fetch if necessary)
   if ! git rev-parse --verify --quiet "$into_branch" >/dev/null 2>&1; then
     if [[ -n "$fetch_target" ]]; then
       git fetch "$fetch_target" "$into_branch":"$into_branch" >/dev/null 2>&1 || true
@@ -168,29 +161,92 @@ EOF
     return 1
   fi
 
-  # build candidate list
+  # Helper: check if branch changes are in target (handles squash/rebase merges)
+  is_branch_merged() {
+    local branch="$1"
+    local target="$2"
+
+    # Fast path: standard merge detection
+    if git merge-base --is-ancestor "$branch" "$target" 2>/dev/null; then
+      return 0
+    fi
+
+    # Check via git cherry: if no '+' lines, all commits are in target
+    # This detects cherry-picks and some rebases
+    if ! git cherry "$target" "$branch" 2>/dev/null | grep -q '^+'; then
+      return 0
+    fi
+
+    # For squash merges: check if branch diff is empty against target
+    # i.e., all changes from branch are already in target
+    local merge_base
+    merge_base=$(git merge-base "$target" "$branch" 2>/dev/null) || return 1
+
+    # Get the tree diff that branch introduces
+    # If target contains all of branch's changes, the diff branch..target
+    # won't show any removals of branch's additions
+    if git diff --quiet "$branch" "$target" -- 2>/dev/null; then
+      # No diff at all - definitely merged
+      return 0
+    fi
+
+    # Check if the branch's changes relative to merge-base exist in target
+    # by seeing if patch-applying branch's changes to target would be empty
+    local branch_changes target_has_changes
+    branch_changes=$(git diff "$merge_base" "$branch" 2>/dev/null)
+    if [[ -z "$branch_changes" ]]; then
+      # Branch has no changes from merge base - effectively merged
+      return 0
+    fi
+
+    # Final check: reverse diff - see if branch is subset of target
+    # If diffing (merge_base..branch) against (merge_base..target) shows
+    # branch changes are contained, it's merged
+    if git diff "$merge_base".."$branch" "$merge_base".."$target" \
+         --no-index -- /dev/null /dev/null 2>/dev/null; then
+      return 0
+    fi
+
+    return 1
+  }
+
+  # Build candidate list
   candidates=()
+  declare -A seen
+
   if [[ $stale_only -eq 1 ]]; then
-    # local branches whose upstream is gone
+    # Only branches whose upstream is gone
     while IFS= read -r line; do
-      candidates+=("$line")
+      [[ -n "$line" ]] && candidates+=("$line") && seen["$line"]=1
     done < <(git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads \
                | awk '$2 == "[gone]" {print $1}')
   else
-    # branches merged into target
+    # 1. Branches merged via standard merge commit
     while IFS= read -r b; do
-      candidates+=("$b")
+      [[ -n "$b" ]] && candidates+=("$b") && seen["$b"]=1
     done < <(git branch --merged "$into_branch" --format='%(refname:short)')
+
+    # 2. Branches with [gone] upstream that appear merged (squash/rebase)
+    while IFS= read -r b; do
+      [[ -z "$b" ]] && continue
+      [[ -n "${seen[$b]:-}" ]] && continue
+
+      if is_branch_merged "$b" "$into_branch"; then
+        candidates+=("$b")
+        seen["$b"]=1
+      fi
+    done < <(git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads \
+               | awk '$2 == "[gone]" {print $1}')
   fi
 
-  # current branch and protections
+  # Current branch and protections
   current_branch=""
   if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
     current_branch=$(git symbolic-ref --short HEAD)
   fi
   protected=("$into_branch" "$current_branch")
 
-  # filter candidates: remove empty, protected, HEAD, refs/*, duplicates
+  # Filter candidates
   filtered=()
   for b in "${candidates[@]}"; do
     [[ -z "$b" ]] && continue
@@ -201,12 +257,7 @@ EOF
       [[ -n "$p" && "$b" == "$p" ]] && skip=1 && break
     done
     [[ $skip -eq 1 ]] && continue
-    # check duplicates
-    dup=0
-    for exist in "${filtered[@]}"; do
-      [[ "$exist" == "$b" ]] && dup=1 && break
-    done
-    [[ $dup -eq 0 ]] && filtered+=("$b")
+    filtered+=("$b")
   done
 
   if [[ ${#filtered[@]} -eq 0 ]]; then
@@ -214,11 +265,14 @@ EOF
     return 0
   fi
 
-  echo "Will operate on the following branches (upstream info shown if available):"
+  echo "Branches to clean up (merged into '$into_branch'):"
   for b in "${filtered[@]}"; do
-    up="$(git for-each-ref --format='%(upstream:short)' refs/heads/"$b" 2>/dev/null || true)"
-    if [[ -n "$up" ]]; then
-      printf "  %s\t(upstream: %s)\n" "$b" "$up"
+    up="$(git for-each-ref --format='%(upstream:short) %(upstream:track)' \
+            "refs/heads/$b" 2>/dev/null || true)"
+    if [[ "$up" == *"[gone]"* ]]; then
+      printf "  %s\t(upstream: gone)\n" "$b"
+    elif [[ -n "$up" ]]; then
+      printf "  %s\t(upstream: %s)\n" "$b" "${up%% *}"
     else
       printf "  %s\n" "$b"
     fi
@@ -226,10 +280,10 @@ EOF
 
   if [[ $delete -eq 0 ]]; then
     echo
-    echo "Dry run (no deletion). To actually delete, re-run with --delete"
+    echo "Dry run. To delete, re-run with --delete"
     echo "Commands:"
     for b in "${filtered[@]}"; do
-      printf "git branch -D %q\n" "$b"
+      printf "git branch --delete --force %q\n" "$b"
     done
     return 0
   fi
@@ -245,7 +299,7 @@ EOF
 
   failures=0
   for b in "${filtered[@]}"; do
-    if git branch -D -- "$b"; then
+    if git branch --delete --force -- "$b"; then
       echo "Deleted $b"
     else
       echo "Failed to delete $b" >&2
