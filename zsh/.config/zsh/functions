@@ -317,3 +317,42 @@ EOF
 }
 
 alias cmb="cleanup-merged-branches"
+
+function auto-venv() {
+    # Deactivate venv if we have left project directory
+    if [[ -n "$VIRTUAL_ENV" && "$PWD" != *"${VIRTUAL_ENV:h}"* ]]; then
+        deactivate
+        return
+    fi
+
+    # Already in a venv for current project so do nothing
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        return
+    fi
+
+    local dir="$PWD"
+    local venv_names=(".venv" "venv")
+
+    while [[ "$dir" != "/" ]]; do
+        for name in "${venv_names[@]}"; do
+            local activate_path="$dir/$name/bin/activate"
+            if [[ -f "$activate_path" ]]; then
+                source "$activate_path"
+                return
+            fi
+        done
+        dir="${dir:h}"
+    done
+}
+
+# Run command on directory change
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd auto-venv
+
+# Open buffer line in editor
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# Enable zmv
+autoload -Uz zmv
