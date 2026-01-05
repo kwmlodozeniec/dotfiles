@@ -122,9 +122,13 @@
                 "show_background": false
             },
             "language_servers": [
-                "basedpyright",
+                "ty",
                 "ruff",
-                "codebook"
+                "codebook",
+                "!basedpyright",
+                "!pyrefly",
+                "!pyright",
+                "!pylsp"
             ],
             "prettier": {
                 "allowed": false
