@@ -19,3 +19,9 @@ bindkey -M vicmd '^[[1;5D' backward-word
 
 # [Ctrl-f] - Tmux sessions script
 bindkey -s '^F' "tmux-sessions\n"
+
+# Magic space
+bindkey ' ' magic-space
+
+# Git commit shortcut, prepare the command and move cursor into the message field
+bindkey -s '^Xgc' 'git commit -m ""\C-b'
