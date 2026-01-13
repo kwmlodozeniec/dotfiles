@@ -13,6 +13,7 @@
     "auto_install_extensions": {
         "caddyfile": true,
         "catppuccin": true,
+        "catppuccin-blur": true,
         "catppuccin-icons": true,
         "codebook": true,
         "dockerfile": true,
@@ -176,8 +177,8 @@
         "font_family": "Monaspace Radon"
     },
     "theme": {
-        "dark": "Catppuccin Mocha",
-        "light": "Catppuccin Latte",
+        "dark": "Catppuccin Espresso (Blur)",
+        "light": "Catppuccin Latte (Blur)",
         "mode": "system"
     },
     "title_bar": {
