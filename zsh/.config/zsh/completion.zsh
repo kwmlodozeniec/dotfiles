@@ -1,15 +1,8 @@
 # General
 # Brew completions
-if type brew &>/dev/null
-then
+if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
 fi
-
-# Use podman completions for docker
-compdef _podman docker
 
 # Load more completions
 fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
@@ -17,8 +10,30 @@ fpath=($ZDOTDIR/plugins/zsh-completions/src $fpath)
 # Should be called before compinit
 zmodload zsh/complist
 
-autoload -U compinit; compinit
-_comp_options+=(globdots) # With hidden files
+# Optimised compinit
+autoload -U compinit
+_comp_path="${ZDOTDIR:-$HOME}/.zcompdump"
+
+# Only regenerate .zcompdump if it's older than 24 hours
+# (#qN.m-1) is a zsh glob qualifier: exists(N), plain file(.), modified within 24h(m-1)
+if [[ -n "$_comp_path"(#qN.m-1) ]]; then
+  compinit -C -d "$_comp_path"
+else
+  compinit -d "$_comp_path"
+fi
+
+# 4. Post-init configuration
+_comp_options+=(globdots)
+
+# Use podman completions for docker
+compdef _podman docker
+
+# Compile zcompdump in the background for next time if it changed
+{
+  if [[ -s "$_comp_path" && (! -s "${_comp_path}.zwc" || "$_comp_path" -nt "${_comp_path}.zwc") ]]; then
+    zcompile "$_comp_path"
+  fi
+} &!
 
 # Options
 # setopt GLOB_COMPLETE      # Show autocompletion menu with globs

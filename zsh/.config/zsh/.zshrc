@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# zmodload zsh/zprof
 
 # Homebrew
 if [ "$(uname)" = "Darwin" ]; then
@@ -68,8 +69,6 @@ source $ZDOTDIR/plugins/fzf-git/fzf-git.sh
 export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env --use-on-cd)"
 
-# Syntax highlighting
-source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Auto .env file loading
 source $ZDOTDIR/plugins/autodotenv/autoenv.plugin.zsh
@@ -91,3 +90,7 @@ eval "$(uvx --generate-shell-completion zsh)"
 
 # opencode
 export PATH=/home/krzysztof/.opencode/bin:$PATH
+
+# Syntax highlighting
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zprof
