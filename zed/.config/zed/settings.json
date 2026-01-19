@@ -2,13 +2,26 @@
   "agent": {
     "default_model": {
       "model": "claude-opus-4-5",
-      "provider": "zed.dev"
+      "provider": "copilot_chat"
     },
     "default_profile": "write",
     "enable_feedback": false,
     "model_parameters": [],
     "notify_when_agent_waiting": "all_screens",
     "use_modifier_to_send": true
+  },
+  "agent_servers": {
+    "opencode": {
+      "default_config_options": {},
+      "default_model": "github-copilot/claude-opus-4.5",
+      "favorite_config_option_values": {},
+      "favorite_models": [
+        "github-copilot/claude-opus-4.5",
+        "github-copilot/gemini-3-flash-preview",
+        "github-copilot/gemini-3-pro-preview"
+      ],
+      "type": "extension"
+    }
   },
   "auto_install_extensions": {
     "caddyfile": true,
