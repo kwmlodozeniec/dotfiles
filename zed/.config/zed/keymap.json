@@ -23,7 +23,12 @@
   {
     "context": "(Editor && !edit_prediction)",
     "bindings": {
-      "alt-/": "editor::ShowEditPrediction",
+      "alt-/": "editor::ShowEditPrediction"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
       "ctrl-alt-right": [
         "workspace::MoveItemToPaneInDirection",
         {
