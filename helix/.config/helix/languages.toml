@@ -34,15 +34,12 @@ args = ["serve"]
 
 [[language]]
 name = "python"
-language-servers = ["pyright", "ruff", "codebook"]
+language-servers = ["ty", "ruff", "codebook"]
 auto-format = true
 
 [language-server.ruff]
 command = "ruff"
 args = ["server"]
-
-[language-server.pyright.config.python.analysis]
-typeCheckingMode = "basic"
 
 [[language]]
 name = "yaml"
