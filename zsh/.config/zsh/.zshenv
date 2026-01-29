@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# Locale
+export LANG=en_GB.utf8
+export LANGUAGE=en_GB.utf8
+export LC_ALL=en_GB.utf8
+
 # Editor
 export VISUAL="hx"
 export EDITOR="$VISUAL"
