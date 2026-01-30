@@ -30,7 +30,6 @@
   "auto_install_extensions": {
     "caddyfile": true,
     "catppuccin": true,
-    "catppuccin-blur": true,
     "catppuccin-icons": true,
     "codebook": true,
     "docker-compose": true,
