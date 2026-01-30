@@ -50,7 +50,8 @@
   },
   "base_keymap": "VSCode",
   "buffer_font_fallbacks": [
-    "monospace"
+    "Symbols Nerd Font Mono",
+    "Apple Color Emoji"
   ],
   "buffer_font_family": "Monaspace Radon",
   "buffer_font_size": 16,
