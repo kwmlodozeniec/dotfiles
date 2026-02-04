@@ -125,19 +125,20 @@
     "mode": "system"
   },
   "languages": {
-    "JSONC": {
-      "tab_size": 2
-    },
-    "YAML": {
-      "tab_size": 2
-    },
     "JSON": {
       "tab_size": 2
     },
+    "JSONC": {
+      "tab_size": 2
+    },
     "Python": {
+      "code_actions_on_format": {
+        "source.fixAll.ruff": true
+      },
       "completions": {
         "words": "fallback"
       },
+      "format_on_save": "on",
       "indent_guides": {
         "background_coloring": "disabled",
         "coloring": "indent_aware"
@@ -158,6 +159,9 @@
       "prettier": {
         "allowed": false
       }
+    },
+    "YAML": {
+      "tab_size": 2
     }
   },
   "linked_edits": true,
