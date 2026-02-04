@@ -34,6 +34,7 @@
     "codebook": true,
     "docker-compose": true,
     "dockerfile": true,
+    "git-firefly": true,
     "html": true,
     "lua": true,
     "markdown-oxide": true,
