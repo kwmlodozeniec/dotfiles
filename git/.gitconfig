@@ -1,13 +1,14 @@
 [init]
     defaultBranch = main
 [core]
-    editor = code --wait
+    editor = zed --wait
     symlinks = true
     excludesfile = ~/.gitignore-global
 [merge]
-    tool = code
-[mergetool "code"]
-    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+    tool = zed
+[mergetool "zed"]
+    cmd = zed --wait $LOCAL $BASE $REMOTE $MERGED
+	trustExitCode = true
 [filter "lfs"]
     required = true
     clean = git-lfs clean -- %f
