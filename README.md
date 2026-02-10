@@ -64,3 +64,31 @@ stow -v -R -t ~ helix
 hx --grammar fetch
 hx --grammar build
 ```
+
+### `git`
+
+Config files for [Git](https://git-scm.com/), including global gitconfig, gitignore, and hooks.
+
+```bash
+stow -v -R -t ~ git
+```
+
+### `zed`
+
+Config files for [Zed editor](https://zed.dev/)
+
+```bash
+stow -v -R -t ~ zed
+```
+
+### `scripts`
+
+Custom utility scripts for various tasks (gitlab-project, aws-profiles, tmux-sessions).
+
+```bash
+stow -v -R -t ~ scripts
+```
+
+### `machine-setup`
+
+Setup scripts for configuring a new machine (macOS).
