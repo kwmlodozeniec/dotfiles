@@ -54,5 +54,131 @@
         }
       ]
     }
+  },
+  //
+  // ============================================================================
+  // Helix Mode Keybindings
+  // ============================================================================
+  // These bindings replicate custom Helix keybindings from:
+  //   helix/.config/helix/config.toml
+  //
+  // Active when helix_mode is enabled. Helix mode uses:
+  //   - vim_mode == helix_normal (normal mode in Helix)
+  //   - vim_mode == helix_select (select mode in Helix, similar to visual mode)
+  //   - vim_mode == insert (shared with vim mode)
+  // ============================================================================
+  //
+  {
+    // Helix Normal mode bindings
+    "context": "Editor && vim_mode == helix_normal",
+    "bindings": {
+      // Navigation between splits (Alt+Arrow)
+      // Helix: A-left = "jump_view_left", etc.
+      "alt-left": "workspace::ActivatePaneLeft",
+      "alt-right": "workspace::ActivatePaneRight",
+      "alt-up": "workspace::ActivatePaneUp",
+      "alt-down": "workspace::ActivatePaneDown",
+
+      // Move lines up/down (Ctrl+Alt+Arrow)
+      // Helix: C-A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+      // Helix: C-A-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+      "ctrl-alt-up": "editor::MoveLineUp",
+      "ctrl-alt-down": "editor::MoveLineDown",
+
+      // Yank to system clipboard
+      // Helix: y = "yank_main_selection_to_clipboard"
+      // Note: In Helix mode, y already uses vim::HelixYank which handles clipboard
+      // This binding ensures it uses the system clipboard
+      "y": "editor::Copy",
+
+      // Paste from system clipboard
+      // Helix: p = "paste_clipboard_before"
+      "p": "editor::Paste",
+
+      // Extend selection with Shift+Arrow
+      // Helix: S-left = "extend_char_left", S-right = "extend_char_right"
+      "shift-left": "editor::SelectLeft",
+      "shift-right": "editor::SelectRight",
+
+      // Extend selection to line boundaries
+      // Helix: S-end = "extend_to_line_end", S-home = "extend_to_line_start"
+      "shift-end": "editor::SelectToEndOfLine",
+      "shift-home": "editor::SelectToBeginningOfLine",
+
+      // Word navigation with Ctrl+Arrow
+      // Helix: C-left = "move_prev_word_end", C-right = "move_next_word_start"
+      "ctrl-left": "editor::MoveToPreviousWordStart",
+      "ctrl-right": "editor::MoveToNextWordEnd",
+
+      // Jump to file start/end
+      // Helix: C-end = "goto_file_end", C-home = "goto_file_start"
+      "ctrl-end": "editor::MoveToEndOfDocument",
+      "ctrl-home": "editor::MoveToBeginningOfDocument",
+
+      // Add selection at next occurrence
+      // Helix: C-d = ["search_selection", "extend_search_next"]
+      "ctrl-d": "editor::SelectNext",
+
+      // Save file
+      // Helix: C-s = ":write"
+      "ctrl-s": "workspace::Save",
+
+      // Buffer navigation
+      // Helix: C-pageup = "goto_previous_buffer", C-pagedown = "goto_next_buffer"
+      "ctrl-pageup": "pane::ActivatePreviousItem",
+      "ctrl-pagedown": "pane::ActivateNextItem",
+
+      // Git panel (closest equivalent to lazygit integration)
+      // Helix: C-g = [":new", ":insert-output lazygit", ":buffer-close!", ":redraw"]
+      "ctrl-g": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    // Insert mode bindings (shared between vim and helix modes)
+    // These only activate when in helix mode's insert state
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // Extend selection with Shift+Arrow
+      // Helix: S-right = "extend_char_right", S-left = "extend_char_left"
+      "shift-right": "editor::SelectRight",
+      "shift-left": "editor::SelectLeft",
+
+      // Word navigation with Ctrl+Arrow
+      // Helix: C-left = "move_prev_word_end", C-right = "move_next_word_start"
+      "ctrl-left": "editor::MoveToPreviousWordStart",
+      "ctrl-right": "editor::MoveToNextWordEnd"
+    }
+  },
+  {
+    // Helix Select mode bindings (similar to visual mode)
+    "context": "Editor && vim_mode == helix_select",
+    "bindings": {
+      // Navigation between splits (Alt+Arrow) - also available in select mode
+      "alt-left": "workspace::ActivatePaneLeft",
+      "alt-right": "workspace::ActivatePaneRight",
+      "alt-up": "workspace::ActivatePaneUp",
+      "alt-down": "workspace::ActivatePaneDown",
+
+      // Extend selection by word with Ctrl+Arrow
+      // Helix: C-left = "extend_prev_word_end", C-right = "extend_next_word_start"
+      "ctrl-left": "editor::SelectToPreviousWordStart",
+      "ctrl-right": "editor::SelectToNextWordEnd",
+
+      // Extend selection by character with Shift+Arrow
+      // Helix: S-left = "extend_char_left", S-right = "extend_char_right"
+      "shift-left": "editor::SelectLeft",
+      "shift-right": "editor::SelectRight",
+
+      // Move lines up/down also works in select mode
+      "ctrl-alt-up": "editor::MoveLineUp",
+      "ctrl-alt-down": "editor::MoveLineDown",
+
+      // Save, buffer nav, git in select mode too
+      "ctrl-s": "workspace::Save",
+      "ctrl-pageup": "pane::ActivatePreviousItem",
+      "ctrl-pagedown": "pane::ActivateNextItem",
+      "ctrl-g": "git_panel::ToggleFocus",
+      "ctrl-d": "editor::SelectNext"
+    }
   }
 ]
