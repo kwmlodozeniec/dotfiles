@@ -119,7 +119,7 @@
     "folds": true
   },
   "hard_tabs": false,
-  "helix_mode": false,
+  "helix_mode": true,
   "icon_theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
