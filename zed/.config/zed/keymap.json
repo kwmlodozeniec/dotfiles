@@ -69,6 +69,12 @@
   // ============================================================================
   //
   {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "space": null, // Disable the default action vim::WrappingRight
+    },
+  },
+  {
     // Helix Normal mode bindings
     "context": "Editor && vim_mode == helix_normal",
     "bindings": {
