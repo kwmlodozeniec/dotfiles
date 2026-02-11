@@ -120,6 +120,9 @@
   },
   "hard_tabs": false,
   "helix_mode": true,
+  "which_key":  {
+    "enabled": true
+  },
   "icon_theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
