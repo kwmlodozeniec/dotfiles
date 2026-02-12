@@ -1,0 +1,3 @@
+commandTemplates:
+  docker: podman
+  dockerCompose: podman-compose
