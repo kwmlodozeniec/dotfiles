@@ -120,7 +120,7 @@
   },
   "hard_tabs": false,
   "helix_mode": true,
-  "which_key":  {
+  "which_key": {
     "enabled": true
   },
   "icon_theme": {
@@ -146,10 +146,6 @@
       "indent_guides": {
         "background_coloring": "disabled",
         "coloring": "indent_aware"
-      },
-      "inlay_hints": {
-        "enabled": true,
-        "show_background": false
       },
       "language_servers": [
         "ty",
