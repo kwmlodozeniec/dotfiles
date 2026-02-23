@@ -78,6 +78,8 @@
     // Helix Normal mode bindings
     "context": "Editor && vim_mode == helix_normal",
     "bindings": {
+      "ctrl-b": "workspace::ToggleRightDock",
+      "ctrl-alt-b": "workspace::ToggleLeftDock",
       // Navigation between splits (Alt+Arrow)
       // Helix: A-left = "jump_view_left", etc.
       "alt-left": "workspace::ActivatePaneLeft",
@@ -133,6 +135,8 @@
     // These only activate when in helix mode's insert state
     "context": "Editor && vim_mode == insert",
     "bindings": {
+      "ctrl-b": "workspace::ToggleRightDock",
+      "ctrl-alt-b": "workspace::ToggleLeftDock",
       // Extend selection with Shift+Arrow
       // Helix: S-right = "extend_char_right", S-left = "extend_char_left"
       "shift-right": "editor::SelectRight",
@@ -147,6 +151,8 @@
     // Helix Select mode bindings (similar to visual mode)
     "context": "Editor && vim_mode == helix_select",
     "bindings": {
+      "ctrl-b": "workspace::ToggleRightDock",
+      "ctrl-alt-b": "workspace::ToggleLeftDock",
       // Navigation between splits (Alt+Arrow) - also available in select mode
       "alt-left": "workspace::ActivatePaneLeft",
       "alt-right": "workspace::ActivatePaneRight",
