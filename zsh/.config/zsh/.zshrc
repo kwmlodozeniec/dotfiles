@@ -64,6 +64,20 @@ source $ZDOTDIR/key_bindings.zsh
 source <(fzf --zsh)
 # FZF for git objects
 source $ZDOTDIR/plugins/fzf-git/fzf-git.sh
+# FZF Catppuccin themes
+FZF_CATPPUCCIN_LATTE=" \
+--color=bg+:#CCD0DA,bg:#EFF1F5,spinner:#DC8A78,hl:#D20F39 \
+--color=fg:#4C4F69,header:#D20F39,info:#8839EF,pointer:#DC8A78 \
+--color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39 \
+--color=selected-bg:#BCC0CC \
+--color=border:#9CA0B0,label:#4C4F69"
+FZF_CATPPUCCIN_MOCHA=" \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+--color=selected-bg:#45475A \
+--color=border:#6C7086,label:#CDD6F4"
+export FZF_DEFAULT_OPTS=$FZF_CATPPUCCIN_LATTE
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
