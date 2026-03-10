@@ -89,6 +89,14 @@ Custom utility scripts for various tasks (gitlab-project, aws-profiles, tmux-ses
 stow -v -R -t ~ scripts
 ```
 
+### `bat`
+
+Config files for [bat](https://github.com/sharkdp/bat).
+
+```bash
+stow -v -R -t ~ bat
+```
+
 ### `machine-setup`
 
 Setup scripts for configuring a new machine (macOS).
