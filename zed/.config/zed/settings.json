@@ -20,6 +20,7 @@
       "favorite_config_option_values": {},
       "favorite_models": [
         "github-copilot/claude-opus-4.5",
+        "github-copilot/claude-sonnet-4.5",
         "github-copilot/gemini-3-flash-preview",
         "github-copilot/gemini-3-pro-preview",
         "github-copilot/gpt-5.2-codex"
@@ -126,7 +127,7 @@
   "icon_theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
-    "mode": "system"
+    "mode": "light"
   },
   "languages": {
     "JSON": {
@@ -208,7 +209,7 @@
   "theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
-    "mode": "dark"
+    "mode": "light"
   },
   "title_bar": {
     "show_branch_icon": true,
