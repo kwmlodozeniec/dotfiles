@@ -1,5 +1,6 @@
 # Set the theme for the editor.
-theme = "catppuccin_mocha"
+# theme = "catppuccin_mocha"
+theme = "catppuccin_latte"
 
 [editor]
 # Highlight the line where the cursor is located.
