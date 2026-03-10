@@ -108,3 +108,5 @@ export PATH=/home/krzysztof/.opencode/bin:$PATH
 # Syntax highlighting
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zprof
+
+. "$HOME/.turso/env"
