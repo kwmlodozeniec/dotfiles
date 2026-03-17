@@ -16,7 +16,7 @@
     },
     "opencode": {
       "default_config_options": {},
-      "default_model": "github-copilot/claude-opus-4.5",
+      "default_model": "github-copilot/claude-sonnet-4.5",
       "favorite_config_option_values": {},
       "favorite_models": [
         "github-copilot/claude-opus-4.5",
@@ -42,7 +42,8 @@
     "mcp-server-context7": true,
     "powershell": true,
     "sql": true,
-    "toml": true
+    "toml": true,
+    "zedokai": true
   },
   "auto_signature_help": false,
   "autosave": {
@@ -208,7 +209,7 @@
   },
   "theme": {
     "dark": "Catppuccin Mocha",
-    "light": "Catppuccin Latte",
+    "light": "Zedokai Light",
     "mode": "light"
   },
   "title_bar": {
