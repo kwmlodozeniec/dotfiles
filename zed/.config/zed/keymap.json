@@ -1,5 +1,29 @@
 [
   {
+    "context": "os == windows",
+    "bindings": {
+      "ctrl-shift-g": [
+        "task::Spawn",
+        {
+          "task_name": "LazyGit",
+          "reveal_target": "center"
+        }
+      ]
+    }
+  },
+  {
+    "context": "os == macos",
+    "bindings": {
+      "cmd-shift-g": [
+        "task::Spawn",
+        {
+          "task_name": "LazyGit",
+          "reveal_target": "center"
+        }
+      ]
+    }
+  },
+  {
     "context": "Workspace",
     "bindings": {
       "shift shift": "file_finder::Toggle",
