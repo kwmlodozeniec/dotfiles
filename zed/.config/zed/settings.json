@@ -122,9 +122,6 @@
   },
   "hard_tabs": false,
   "helix_mode": true,
-  "which_key": {
-    "enabled": true
-  },
   "icon_theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
@@ -178,6 +175,32 @@
   "prettier": {
     "allowed": false
   },
+  "profiles": {
+    "Dark": {
+      "icon_theme": {
+        "dark": "Catppuccin Mocha",
+        "light": "Catppuccin Latte",
+        "mode": "dark"
+      },
+      "theme": {
+        "dark": "Catppuccin Mocha",
+        "light": "Zedokai Light",
+        "mode": "dark"
+      }
+    },
+    "Light": {
+      "icon_theme": {
+        "dark": "Catppuccin Mocha",
+        "light": "Catppuccin Latte",
+        "mode": "light"
+      },
+      "theme": {
+        "dark": "Catppuccin Mocha",
+        "light": "Zedokai Light",
+        "mode": "light"
+      }
+    }
+  },
   "project_panel": {
     "button": true,
     "dock": "right"
@@ -218,6 +241,9 @@
   },
   "ui_font_size": 16,
   "vertical_scroll_margin": 10,
+  "which_key": {
+    "enabled": true
+  },
   "wrap_guides": [
     100,
     120
