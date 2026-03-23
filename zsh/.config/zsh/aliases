@@ -47,7 +47,6 @@ alias gdb="git-branch-delete"
 alias gbs="git-branch-switch"
 alias pull="git pull"
 alias push="git push"
-alias fd="fdfind"
 alias docker="podman"
 
 # Using Rust coreutils
