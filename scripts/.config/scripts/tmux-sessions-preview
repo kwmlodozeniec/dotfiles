@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+dir="$1"
+
+echo "📁 $(basename "$dir")"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+# Git info if available
+if [ -d "$dir/.git" ]; then
+    echo "📊 Git Repository"
+    cd "$dir" 2>/dev/null && git branch --show-current 2>/dev/null | sed "s/^/   Branch: /"
+    cd "$dir" 2>/dev/null && git log -1 --format="   Last commit: %ar" 2>/dev/null
+    cd "$dir" 2>/dev/null && git status --short 2>/dev/null | head -5 | sed "s/^/   /"
+    [ "$(cd "$dir" && git status --short 2>/dev/null | wc -l)" -gt 5 ] && echo "   ..."
+    echo ""
+fi
+
+# README preview
+if [ -f "$dir/README.md" ]; then
+    echo "📄 README.md"
+    head -10 "$dir/README.md" | sed "s/^/   /"
+    echo ""
+elif [ -f "$dir/readme.md" ]; then
+    echo "📄 readme.md"
+    head -10 "$dir/readme.md" | sed "s/^/   /"
+    echo ""
+fi
+
+# Directory contents
+echo "📂 Contents"
+ls -1 "$dir" 2>/dev/null | head -10 | sed "s/^/   /"
+[ "$(ls -1 "$dir" 2>/dev/null | wc -l)" -gt 10 ] && echo "   ..."
