@@ -16,8 +16,8 @@ if [[ -z "$session" ]]; then
     exit 0
 fi
 
-session_name=$(basename "$session" | tr . _)
-tmux_running=$(pgrep tmux)
+session_name=$(basename "$session" | tr '. ' '_' | tr -cd '[:alnum:]_-')
+tmux_running=$(tmux list-sessions 2>/dev/null)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s "$session_name" -c "$session"
