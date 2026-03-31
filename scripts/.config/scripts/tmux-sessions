@@ -3,21 +3,38 @@
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 preview_script="$script_dir/tmux-sessions-preview"
 
+# Function to annotate directories with session status
+annotate_with_sessions() {
+    while IFS= read -r dir; do
+        session_name=$(basename "$dir" | tr '. ' '_' | tr -cd '[:alnum:]_-')
+        if tmux has-session -t "$session_name" 2>/dev/null; then
+            echo "$dir [●]"
+        else
+            echo "$dir"
+        fi
+    done
+}
+
 if [[ $# -eq 1 ]]; then
     session=$1
 else
     if [ "$(uname)" = "Darwin" ]; then
         session=$(find "$HOME/.config" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
-            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory')
+            annotate_with_sessions | \
+            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
     elif [ "$(uname)" = "Linux" ]; then
         session=$(find "$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
-            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory')
+            annotate_with_sessions | \
+            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
     fi
 fi
 
 if [[ -z "$session" ]]; then
     exit 0
 fi
+
+# Strip the session indicator if present
+session=${session% \[●\]}
 
 session_name=$(basename "$session" | tr '. ' '_' | tr -cd '[:alnum:]_-')
 tmux_running=$(tmux list-sessions 2>/dev/null)
