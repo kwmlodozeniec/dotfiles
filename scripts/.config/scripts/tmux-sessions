@@ -3,6 +3,20 @@
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 preview_script="$script_dir/tmux-sessions-preview"
 
+# Load configuration
+# Priority: 1. Environment variable, 2. Defaults
+if [[ -n "$TMUX_SESSION_DIRS" ]]; then
+    # Use environment variable (colon-separated paths)
+    IFS=':' read -ra search_dirs <<< "$TMUX_SESSION_DIRS"
+else
+    # Use defaults based on OS
+    if [ "$(uname)" = "Darwin" ]; then
+        search_dirs=("$HOME/.config" "$HOME/projects")
+    elif [ "$(uname)" = "Linux" ]; then
+        search_dirs=("$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects")
+    fi
+fi
+
 # Function to annotate directories with session status
 annotate_with_sessions() {
     while IFS= read -r dir; do
@@ -18,15 +32,24 @@ annotate_with_sessions() {
 if [[ $# -eq 1 ]]; then
     session=$1
 else
-    if [ "$(uname)" = "Darwin" ]; then
-        session=$(find "$HOME/.config" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
-            annotate_with_sessions | \
-            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
-    elif [ "$(uname)" = "Linux" ]; then
-        session=$(find "$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
-            annotate_with_sessions | \
-            fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
+    # Build find command with all search directories
+    find_args=()
+    for dir in "${search_dirs[@]}"; do
+        # Expand tilde and check if directory exists
+        expanded_dir="${dir/#\~/$HOME}"
+        if [[ -d "$expanded_dir" ]]; then
+            find_args+=("$expanded_dir")
+        fi
+    done
+    
+    if [[ ${#find_args[@]} -eq 0 ]]; then
+        echo "Error: No valid search directories found" >&2
+        exit 1
     fi
+    
+    session=$(find "${find_args[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
+        annotate_with_sessions | \
+        fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
 fi
 
 if [[ -z "$session" ]]; then
