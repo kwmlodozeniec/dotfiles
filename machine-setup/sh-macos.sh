@@ -47,7 +47,9 @@ PACKAGES=(
   "helix"
   "httpie"
   "k6"
+  "marksman"
   "pearcleaner"
+  "rumdl"
   "shortcat"
   "starship"
   "stats"
@@ -55,6 +57,7 @@ PACKAGES=(
   "television"
   "tree"
   "uv"
+  "yaml-language-server"
   "zoxide"
 )
 
