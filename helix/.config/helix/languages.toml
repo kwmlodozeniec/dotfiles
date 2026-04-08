@@ -23,7 +23,7 @@ block-comment-tokens = [
   { start = "/**", end = "*/" },
   { start = "/*!", end = "*/" },
 ]
-language-servers = ["rust-analyzer", "codebook"]
+language-servers = ["rust-analyzer", "harper-ls"]
 indent = { tab-width = 4, unit = "    " }
 persistent-diagnostic-sources = ["rustc", "clippy"]
 formatter = { command = "rustfmt" }
@@ -32,25 +32,33 @@ formatter = { command = "rustfmt" }
 command = "codebook-lsp"
 args = ["serve"]
 
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
 [[language]]
 name = "python"
-language-servers = ["ty", "ruff", "codebook"]
+language-servers = ["ty", "ruff", "codebook", "harper-ls"]
 auto-format = true
 
 [language-server.ruff]
 command = "ruff"
 args = ["server"]
 
+[language-server.rumdl]
+command = "rumdl"
+args = ["server"]
+
 [[language]]
 name = "yaml"
 auto-format = true
-language-servers = ["codebook"]
+language-servers = ["yaml-language-server", "codebook"]
 formatter = { command = "prettier", args = ["--parser", "yaml"] }
 
 [[language]]
 name = "toml"
 auto-format = true
-language-servers = ["codebook"]
+language-servers = ["codebook", "harper-ls"]
 formatter = { command = "taplo", args = ["format", "-"] }
 
 [[language]]
@@ -61,8 +69,10 @@ formatter = { command = 'prettier', args = ["--parser", "json"] }
 [[language]]
 name = "markdown"
 auto-format = true
-language-servers = ["codebook"]
-formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+language-servers = ["harper-ls", "marksman", "rumdl"]
+soft-wrap.enable = true
+text-width = 120
+soft-wrap.wrap-at-text-width = true
 
 [language-server.gopls.config]
 gofumpt = true
