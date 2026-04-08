@@ -41,12 +41,12 @@ else
             find_args+=("$expanded_dir")
         fi
     done
-    
+
     if [[ ${#find_args[@]} -eq 0 ]]; then
         echo "Error: No valid search directories found" >&2
         exit 1
     fi
-    
+
     session=$(find "${find_args[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
         annotate_with_sessions | \
         fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = active session)')
