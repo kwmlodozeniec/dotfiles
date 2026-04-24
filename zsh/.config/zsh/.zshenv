@@ -5,6 +5,9 @@ export LANG=en_GB.utf8
 export LANGUAGE=en_GB.utf8
 export LC_ALL=en_GB.utf8
 
+# Colours
+export COLORTERM=truecolor
+
 # Editor
 export VISUAL="hx"
 export EDITOR="$VISUAL"
