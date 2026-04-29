@@ -42,3 +42,5 @@
 [alias]
     fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
     gtfo = "!f(){ base=$(git rev-parse --abbrev-ref HEAD); git switch --force-create km/emergency-exit && git add --all && git commit --message \"KM: Emergency exit (from $base)\" && git push --force --set-upstream origin HEAD; }; f"
+    tidy-preview = "!git clean -fdX -n && find . -depth -type d -empty -not -path '*/.git*' -print"
+	tidy = "!git clean -fdX && find . -depth -type d -empty -not -path '*/.git*' -exec rmdir {} +"
