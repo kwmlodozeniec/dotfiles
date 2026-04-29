@@ -175,6 +175,15 @@
           "dialect": "British"
         }
       }
+    },
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "bracketSpacing": true,
+          "format": true,
+          "singleQuote": true
+        }
+      }
     }
   },
   "minimap": {
