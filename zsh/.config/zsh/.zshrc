@@ -77,7 +77,8 @@ FZF_CATPPUCCIN_MOCHA=" \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
 --color=border:#6C7086,label:#CDD6F4"
-export FZF_DEFAULT_OPTS=$FZF_CATPPUCCIN_LATTE
+# export FZF_DEFAULT_OPTS=$FZF_CATPPUCCIN_LATTE
+export FZF_DEFAULT_OPTS=$FZF_CATPPUCCIN_MOCHA
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"

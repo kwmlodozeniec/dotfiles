@@ -9,6 +9,7 @@
     "enable_feedback": false,
     "model_parameters": [],
     "notify_when_agent_waiting": "all_screens",
+    "sidebar_side": "right",
     "use_modifier_to_send": true
   },
   "agent_servers": {
@@ -128,7 +129,7 @@
   "icon_theme": {
     "dark": "Catppuccin Mocha",
     "light": "Catppuccin Latte",
-    "mode": "light"
+    "mode": "dark"
   },
   "languages": {
     "JSON": {
@@ -259,7 +260,7 @@
   "theme": {
     "dark": "Catppuccin Mocha",
     "light": "Zedokai Light",
-    "mode": "light"
+    "mode": "dark"
   },
   "title_bar": {
     "show_branch_status_icon": true,
