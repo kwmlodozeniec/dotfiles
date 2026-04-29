@@ -5,6 +5,7 @@
       "provider": "copilot_chat"
     },
     "default_profile": "write",
+    "dock": "right",
     "enable_feedback": false,
     "model_parameters": [],
     "notify_when_agent_waiting": "all_screens",
@@ -59,6 +60,7 @@
   ],
   "buffer_font_family": "Monaspace Radon",
   "buffer_font_size": 16,
+  "cli_default_open_behavior": "existing_window",
   "collaboration_panel": {
     "dock": "right"
   },
@@ -161,6 +163,7 @@
       }
     },
     "YAML": {
+      "formatter": "language_server",
       "tab_size": 2
     }
   },
@@ -187,27 +190,31 @@
   },
   "profiles": {
     "Dark": {
-      "icon_theme": {
-        "dark": "Catppuccin Mocha",
-        "light": "Catppuccin Latte",
-        "mode": "dark"
-      },
-      "theme": {
-        "dark": "Catppuccin Mocha",
-        "light": "Zedokai Light",
-        "mode": "dark"
+      "settings": {
+        "icon_theme": {
+          "dark": "Catppuccin Mocha",
+          "light": "Catppuccin Latte",
+          "mode": "dark"
+        },
+        "theme": {
+          "dark": "Catppuccin Mocha",
+          "light": "Zedokai Light",
+          "mode": "dark"
+        }
       }
     },
     "Light": {
-      "icon_theme": {
-        "dark": "Catppuccin Mocha",
-        "light": "Catppuccin Latte",
-        "mode": "light"
-      },
-      "theme": {
-        "dark": "Catppuccin Mocha",
-        "light": "Zedokai Light",
-        "mode": "light"
+      "settings": {
+        "icon_theme": {
+          "dark": "Catppuccin Mocha",
+          "light": "Catppuccin Latte",
+          "mode": "light"
+        },
+        "theme": {
+          "dark": "Catppuccin Mocha",
+          "light": "Zedokai Light",
+          "mode": "light"
+        }
       }
     }
   },
@@ -246,11 +253,12 @@
     "mode": "light"
   },
   "title_bar": {
-    "show_branch_icon": true,
+    "show_branch_status_icon": true,
     "show_menus": false
   },
   "ui_font_size": 16,
   "vertical_scroll_margin": 10,
+  "vim_mode": false,
   "which_key": {
     "enabled": true
   },
