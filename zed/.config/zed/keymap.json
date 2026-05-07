@@ -29,7 +29,7 @@
       "shift shift": "file_finder::Toggle",
       "ctrl ctrl": "command_palette::Toggle",
       "ctrl-tab": "tab_switcher::ToggleAll",
-      "ctrl-shift-tab": "tab_switcher::ToggleAll"
+      "ctrl-shift-tab": "tab_switcher::Toggle"
     }
   },
   {
