@@ -76,6 +76,11 @@
   },
   "cursor_blink": true,
   "cursor_shape": "bar",
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  },
   "disable_ai": false,
   "ensure_final_newline_on_save": true,
   "file_scan_exclusions": [
