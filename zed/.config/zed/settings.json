@@ -185,9 +185,9 @@
     "yaml-language-server": {
       "settings": {
         "yaml": {
-          "bracketSpacing": true,
-          "format": true,
-          "singleQuote": true
+          "format": {
+            "singleQuote": false
+          }
         }
       }
     }
