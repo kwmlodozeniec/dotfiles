@@ -39,6 +39,7 @@ alias git-add-ammend-push="git add . && git commit --amend --no-edit && git push
 alias lg="lazygit"
 alias c="code"
 alias z="zed"
+alias o="opencode"
 alias gsl="git-short-log"
 alias grb="git-rebase"
 alias gpf="git-push-force"
