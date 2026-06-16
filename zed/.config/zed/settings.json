@@ -41,6 +41,7 @@
     "harper": true,
     "html": true,
     "lua": true,
+    "make": true,
     "markdown-oxide": true,
     "mcp-server-context7": true,
     "powershell": true,
@@ -142,6 +143,9 @@
     },
     "JSONC": {
       "tab_size": 2
+    },
+    "Make": {
+      "hard_tabs": true
     },
     "Python": {
       "code_actions_on_format": {
