@@ -45,6 +45,11 @@ SHELL_SESSION_HISTORY=0                 # Disable per-terminal-session
 # Prevent overwritting files with file redirect
 set -o noclobber
 
+# Command line editting
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
 # Aliases
 source $ZDOTDIR/aliases
 source $ZDOTDIR/work_aliases
