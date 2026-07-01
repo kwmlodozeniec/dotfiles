@@ -260,6 +260,10 @@
     "metrics": false
   },
   "terminal": {
+    "env": {
+      "EDITOR": "zed --wait",
+      "VISUAL": "zed --wait"
+    },
     "font_fallbacks": [
       "Symbols Nerd Font Mono",
       "Apple Color Emoji"
