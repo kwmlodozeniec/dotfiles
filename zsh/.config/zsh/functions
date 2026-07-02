@@ -53,49 +53,26 @@ function unload-env() {
     unset $(grep -v '^#' $ENV_FILE | sed -E 's/(.*)=.*/\1/' | xargs)
 }
 
-function cleanup-merged-branches() {
-  # Usage: cleanup-merged-branches [--delete|-d] [--stale] [--into BRANCH]
-  #        [--remote REMOTE] [--yes] [remote]
-  # Dry-run by default. Use --delete to actually remove branches.
-  set -o pipefail
-
-  delete=0
-  stale_only=0
-  remote_fetch=""
-  into_branch=""
-  confirm=0
-  remote_arg="origin"
-
-  usage() {
-    cat <<EOF
-Usage: cleanup-merged-branches [--delete|-d] [--stale] [--into BRANCH]
-                                [--remote REMOTE] [--yes] [remote-name]
-Options:
-    -d, --delete     actually delete branches (default: dry-run)
-    --stale          only targets local branches whose upstream is gone
-    --into BRANCH    consider branches merged into BRANCH (default: repo default)
-    --remote REMOTE  use REMOTE for fetching (default: origin if present)
-    --yes            skip confirmation when deleting
-    remote-name      alternative git remote name to fetch from (positional)
-EOF
-  }
+cleanup-gone-branches() {
+  local delete=0
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      -d|--delete) delete=1; shift ;;
-      --stale) stale_only=1; shift ;;
-      --into) into_branch="$2"; shift 2 ;;
-      --remote) remote_fetch="$2"; shift 2 ;;
-      --yes) confirm=1; shift ;;
-      -h|--help) usage; return 0 ;;
-      --) shift; break ;;
-      -*)
-        echo "Unknown option: $1" >&2
-        return 2
+      --delete|-d)
+        delete=1
+        shift
+        ;;
+      -h|--help)
+        cat <<'EOF'
+Usage: cleanup-gone-branches [--delete|-d]
+
+List local branches whose upstream is gone.
+EOF
+        return 0
         ;;
       *)
-        remote_arg="$1"
-        shift
+        echo "Unknown argument: $1" >&2
+        return 1
         ;;
     esac
   done
@@ -105,218 +82,63 @@ EOF
     return 1
   fi
 
-  if [[ -n "$remote_fetch" ]]; then
-    fetch_target="$remote_fetch"
-  else
-    if git remote | grep -q "^${remote_arg}\$"; then
-      fetch_target="$remote_arg"
-    elif git remote | grep -q '^origin$'; then
-      fetch_target="origin"
-    else
-      fetch_target=""
-    fi
-  fi
+  git fetch --prune
 
-  if [[ -n "$fetch_target" ]]; then
-    echo "Fetching from '$fetch_target' (prune)..."
-    git fetch --prune "$fetch_target"
-  else
-    echo "No remote to fetch/prune (no 'origin' and none provided). Skipping fetch."
-  fi
+  local current_branch
+  current_branch="$(git symbolic-ref --quiet --short HEAD 2>/dev/null)"
 
-  detect_default_branch() {
-    if git remote show origin >/dev/null 2>&1; then
-      default=$(git remote show origin 2>/dev/null \
-        | awk -F': ' '/HEAD branch/ {print $2; exit}')
-      if [[ -n "$default" ]]; then
-        printf '%s' "$default"
-        return
-      fi
-    fi
-    if git show-ref --verify --quiet refs/heads/main; then
-      printf 'main'
-      return
-    fi
-    if git show-ref --verify --quiet refs/heads/master; then
-      printf 'master'
-      return
-    fi
-    if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
-      git symbolic-ref --short HEAD
-      return
-    fi
-    printf 'main'
-  }
+  local -a branches
+  local branch tracking
 
-  if [[ -z "$into_branch" ]]; then
-    into_branch="$(detect_default_branch)"
-  fi
+  while IFS=$'\t' read -r branch tracking; do
+    [[ -z "$branch" ]] && continue
+    [[ -n "$current_branch" && "$branch" == "$current_branch" ]] && continue
+    [[ "$tracking" == *"[gone]"* ]] && branches+=("$branch")
+  done < <(
+    git for-each-ref \
+      --format=$'%(refname:short)\t%(upstream:track)' \
+      refs/heads
+  )
 
-  if ! git rev-parse --verify --quiet "$into_branch" >/dev/null 2>&1; then
-    if [[ -n "$fetch_target" ]]; then
-      git fetch "$fetch_target" "$into_branch":"$into_branch" >/dev/null 2>&1 || true
-    fi
-  fi
-  if ! git rev-parse --verify --quiet "$into_branch" >/dev/null 2>&1; then
-    echo "Could not resolve target branch '$into_branch'." >&2
-    return 1
-  fi
-
-  # Helper: check if branch changes are in target (handles squash/rebase merges)
-  is_branch_merged() {
-    local branch="$1"
-    local target="$2"
-
-    # Fast path: standard merge detection
-    if git merge-base --is-ancestor "$branch" "$target" 2>/dev/null; then
-      return 0
-    fi
-
-    # Check via git cherry: if no '+' lines, all commits are in target
-    # This detects cherry-picks and some rebases
-    if ! git cherry "$target" "$branch" 2>/dev/null | grep -q '^+'; then
-      return 0
-    fi
-
-    # For squash merges: check if branch diff is empty against target
-    # i.e., all changes from branch are already in target
-    local merge_base
-    merge_base=$(git merge-base "$target" "$branch" 2>/dev/null) || return 1
-
-    # Get the tree diff that branch introduces
-    # If target contains all of branch's changes, the diff branch..target
-    # won't show any removals of branch's additions
-    if git diff --quiet "$branch" "$target" -- 2>/dev/null; then
-      # No diff at all - definitely merged
-      return 0
-    fi
-
-    # Check if the branch's changes relative to merge-base exist in target
-    # by seeing if patch-applying branch's changes to target would be empty
-    local branch_changes target_has_changes
-    branch_changes=$(git diff "$merge_base" "$branch" 2>/dev/null)
-    if [[ -z "$branch_changes" ]]; then
-      # Branch has no changes from merge base - effectively merged
-      return 0
-    fi
-
-    # Final check: reverse diff - see if branch is subset of target
-    # If diffing (merge_base..branch) against (merge_base..target) shows
-    # branch changes are contained, it's merged
-    if git diff "$merge_base".."$branch" "$merge_base".."$target" \
-         --no-index -- /dev/null /dev/null 2>/dev/null; then
-      return 0
-    fi
-
-    return 1
-  }
-
-  # Build candidate list
-  candidates=()
-  declare -A seen
-
-  if [[ $stale_only -eq 1 ]]; then
-    # Only branches whose upstream is gone
-    while IFS= read -r line; do
-      [[ -n "$line" ]] && candidates+=("$line") && seen["$line"]=1
-    done < <(git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads \
-               | awk '$2 == "[gone]" {print $1}')
-  else
-    # 1. Branches merged via standard merge commit
-    while IFS= read -r b; do
-      [[ -n "$b" ]] && candidates+=("$b") && seen["$b"]=1
-    done < <(git branch --merged "$into_branch" --format='%(refname:short)')
-
-    # 2. Branches with [gone] upstream that appear merged (squash/rebase)
-    while IFS= read -r b; do
-      [[ -z "$b" ]] && continue
-      [[ -n "${seen[$b]:-}" ]] && continue
-
-      if is_branch_merged "$b" "$into_branch"; then
-        candidates+=("$b")
-        seen["$b"]=1
-      fi
-    done < <(git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads \
-               | awk '$2 == "[gone]" {print $1}')
-  fi
-
-  # Current branch and protections
-  current_branch=""
-  if git symbolic-ref --quiet --short HEAD >/dev/null 2>&1; then
-    current_branch=$(git symbolic-ref --short HEAD)
-  fi
-  protected=("$into_branch" "$current_branch")
-
-  # Filter candidates
-  filtered=()
-  for b in "${candidates[@]}"; do
-    [[ -z "$b" ]] && continue
-    [[ "$b" == "HEAD" ]] && continue
-    [[ "$b" == refs/* ]] && continue
-    skip=0
-    for p in "${protected[@]}"; do
-      [[ -n "$p" && "$b" == "$p" ]] && skip=1 && break
-    done
-    [[ $skip -eq 1 ]] && continue
-    filtered+=("$b")
-  done
-
-  if [[ ${#filtered[@]} -eq 0 ]]; then
-    echo "No branches to delete."
+  if [[ ${#branches[@]} -eq 0 ]]; then
+    echo "No branches with gone upstreams."
     return 0
   fi
 
-  echo "Branches to clean up (merged into '$into_branch'):"
-  for b in "${filtered[@]}"; do
-    up="$(git for-each-ref --format='%(upstream:short) %(upstream:track)' \
-            "refs/heads/$b" 2>/dev/null || true)"
-    if [[ "$up" == *"[gone]"* ]]; then
-      printf "  %s\t(upstream: gone)\n" "$b"
-    elif [[ -n "$up" ]]; then
-      printf "  %s\t(upstream: %s)\n" "$b" "${up%% *}"
-    else
-      printf "  %s\n" "$b"
-    fi
-  done
+  echo "Branches with gone upstreams:"
+  printf '  %s\n' "${branches[@]}"
 
   if [[ $delete -eq 0 ]]; then
     echo
-    echo "Dry run. To delete, re-run with --delete"
-    echo "Commands:"
-    for b in "${filtered[@]}"; do
-      printf "git branch --delete --force %q\n" "$b"
-    done
+    echo "Dry run. Re-run with --delete to remove them."
     return 0
   fi
 
-  if [[ $confirm -eq 0 ]]; then
-    printf 'Delete %d branches? [y/N] ' "${#filtered[@]}"
-    read -r ans
-    case "${ans:-}" in
-      y|Y|yes|Yes) ;;
-      *) echo "Aborting."; return 0 ;;
-    esac
-  fi
+  echo
+  printf 'Delete these branches? [y/N] '
+  read -r answer
 
-  failures=0
-  for b in "${filtered[@]}"; do
-    if git branch --delete --force -- "$b"; then
-      echo "Deleted $b"
-    else
-      echo "Failed to delete $b" >&2
-      failures=$((failures + 1))
-    fi
-  done
-
-  if [[ $failures -gt 0 ]]; then
-    echo "Completed with $failures failures." >&2
-    return 1
-  fi
-
-  echo "Done."
+  case "$answer" in
+    y|Y|yes|YES)
+      local failed=0
+      for branch in "${branches[@]}"; do
+        if git branch -d -- "$branch"; then
+          echo "Deleted $branch"
+        else
+          echo "Failed to delete $branch" >&2
+          failed=1
+        fi
+      done
+      return $failed
+      ;;
+    *)
+      echo "Aborted."
+      return 0
+      ;;
+  esac
 }
 
-alias cmb="cleanup-merged-branches"
+alias cgb="cleanup-gone-branches"
 
 function auto-venv() {
     # Deactivate venv if we have left project directory
