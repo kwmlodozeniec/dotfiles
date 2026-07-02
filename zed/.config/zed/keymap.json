@@ -26,6 +26,7 @@
   {
     "context": "Workspace",
     "bindings": {
+      "alt alt": "text_finder::Toggle",
       "shift shift": "file_finder::Toggle",
       "ctrl ctrl": "command_palette::Toggle",
       "ctrl-tab": "tab_switcher::ToggleAll",
