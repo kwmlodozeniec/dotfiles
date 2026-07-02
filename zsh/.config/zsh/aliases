@@ -192,3 +192,8 @@ alias -s txt="$EDITOR"
 alias -s log="$EDITOR"
 alias -s css="$EDITOR"
 alias -s html="$EDITOR"
+
+# uv
+alias proud-bump="uv version --bump major"
+alias ok-bump="uv version --bump minor"
+alias shame-bump="uv version --bump patch"
