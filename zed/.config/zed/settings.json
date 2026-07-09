@@ -121,6 +121,7 @@
   },
   "git": {
     "inline_blame": {
+      "location": "status_bar",
       "padding": 5
     }
   },
