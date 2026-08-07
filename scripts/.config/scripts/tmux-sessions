@@ -21,7 +21,7 @@ fi
 annotate_with_sessions() {
     while IFS= read -r dir; do
         session_name=$(basename "$dir" | tr '. ' '_' | tr -cd '[:alnum:]_-')
-        if tmux has-session -t "$session_name" 2>/dev/null; then
+        if tmux has-session -t "=$session_name" 2>/dev/null; then
             echo "$dir [●]"
         else
             echo "$dir"
@@ -67,7 +67,7 @@ if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     exit 0
 fi
 
-if ! tmux has-session -t "$session_name" 2>/dev/null; then
+if ! tmux has-session -t "=$session_name" 2>/dev/null; then
     tmux new-session -s "$session_name" -c "$session" -d
 fi
 

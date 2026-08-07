@@ -7,7 +7,7 @@ dir=${dir% \[●\]}
 
 # Check if session exists
 session_name=$(basename "$dir" | tr '. ' '_' | tr -cd '[:alnum:]_-')
-if tmux has-session -t "$session_name" 2>/dev/null; then
+if tmux has-session -t "=$session_name" 2>/dev/null; then
     echo "📁 $(basename "$dir") ● ACTIVE SESSION"
 else
     echo "📁 $(basename "$dir")"
