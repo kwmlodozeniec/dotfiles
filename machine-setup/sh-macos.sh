@@ -38,6 +38,7 @@ PACKAGES=(
   "--cask raycast"
   "--cask shottr"
   "--cask zed"
+  "ast-grep"
   "bat"
   "eza"
   "fd"
