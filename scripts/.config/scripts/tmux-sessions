@@ -18,15 +18,23 @@ else
 fi
 
 # Function to annotate directories with session status
+# Active sessions are emitted first so they appear at the top of the fzf list.
 annotate_with_sessions() {
+    local -a active inactive
     while IFS= read -r dir; do
         session_name=$(basename "$dir" | tr '. ' '_' | tr -cd '[:alnum:]_-')
         if tmux has-session -t "=$session_name" 2>/dev/null; then
-            echo "$dir [●]"
+            active+=("$dir [●]")
         else
-            echo "$dir"
+            inactive+=("$dir")
         fi
     done
+    if [[ ${#active[@]} -gt 0 ]]; then
+        printf '%s\n' "${active[@]}"
+    fi
+    if [[ ${#inactive[@]} -gt 0 ]]; then
+        printf '%s\n' "${inactive[@]}"
+    fi
 }
 
 if [[ $# -eq 1 ]]; then
