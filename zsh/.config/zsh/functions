@@ -12,6 +12,22 @@ function activate-env() {
     source $VENV_NAME/bin/activate
 }
 
+function delete-env() {
+    local VENV_NAME="${1:-.venv}"
+
+    if [[ ! -f "$VENV_NAME/pyvenv.cfg" ]]; then
+        echo "Not a virtual environment: $VENV_NAME" >&2
+        return 1
+    fi
+
+    # Deactivate first if the venv being deleted is the active one
+    if [[ -n "$VIRTUAL_ENV" && "$VIRTUAL_ENV" == "${VENV_NAME:A}" ]]; then
+        deactivate
+    fi
+
+    command rm -rf -- "$VENV_NAME"
+}
+
 function git-short-log() {
     local NUMBER=${1:-10}
     git --no-pager log --pretty=oneline --abbrev-commit -n $NUMBER
