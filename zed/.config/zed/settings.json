@@ -1,21 +1,17 @@
 {
   "agent": {
-    "default_model": {
-      "model": "claude-opus-4.5",
-      "provider": "copilot_chat"
-    },
     "default_profile": "write",
     "dock": "right",
     "enable_feedback": false,
     "model_parameters": [],
     "notify_when_agent_waiting": "all_screens",
     "sidebar_side": "right",
+    "threads_sidebar": {
+      "position": "right"
+    },
     "use_modifier_to_send": true
   },
   "agent_servers": {
-    "github-copilot": {
-      "type": "registry"
-    },
     "opencode": {
       "default_config_options": {},
       "default_model": "github-copilot/claude-sonnet-4.5",
@@ -55,7 +51,7 @@
       "milliseconds": 1000
     }
   },
-  "base_keymap": "VSCode",
+  "base_keymap": "Zed",
   "buffer_font_fallbacks": [
     "Symbols Nerd Font Mono",
     "Apple Color Emoji"
@@ -83,6 +79,9 @@
     }
   },
   "disable_ai": false,
+  "edit_predictions": {
+    "allow_data_collection": "no"
+  },
   "ensure_final_newline_on_save": true,
   "file_scan_exclusions": [
     "**/*.egg*",
@@ -139,6 +138,11 @@
     "light": "Catppuccin Latte",
     "mode": "dark"
   },
+  "language_models": {
+    "opencode": {
+      "show_zen_models": false
+    }
+  },
   "languages": {
     "JSON": {
       "tab_size": 2
@@ -165,6 +169,7 @@
         "ty",
         "ruff",
         "harper-ls",
+        "codebook",
         "!basedpyright",
         "!pyrefly",
         "!pyright",
