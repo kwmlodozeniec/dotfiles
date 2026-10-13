@@ -100,3 +100,11 @@ stow -v -R -t ~ bat
 ### `machine-setup`
 
 Setup scripts for configuring a new machine (macOS).
+
+### `herdr`
+
+Config files for [herdr](https://herdr.dev/).
+
+```bash
+stow -v -R -t ~ herdr
+```
