@@ -86,6 +86,7 @@ PACKAGES=(
   "fzf"
   "golang"
   "helix"
+  "herdr"
   "httpie"
   "k6"
   "marksman"
