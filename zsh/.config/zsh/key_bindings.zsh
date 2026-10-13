@@ -18,7 +18,7 @@ bindkey -M viins '^[[1;5D' backward-word
 bindkey -M vicmd '^[[1;5D' backward-word
 
 # [Ctrl-f] - Tmux sessions script
-bindkey -s '^F' "tmux-sessions\n"
+bindkey -s '^F' "herdr-workspaces\n"
 
 # Magic space
 bindkey ' ' magic-space
