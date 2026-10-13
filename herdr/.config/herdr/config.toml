@@ -1,0 +1,59 @@
+onboarding = false
+
+[theme]
+# tmux used catppuccin mocha
+name = "catppuccin"
+
+[keys]
+# Control + Space, with C-a as backup for Windows Terminal issues
+prefix = ["ctrl+space", "ctrl+a"]
+
+# Splits: h = side by side, v = stacked (matches tmux split-window -h / -v)
+split_vertical = "prefix+h"
+split_horizontal = "prefix+v"
+
+# Reload config on prefix+r, so resize mode moves to prefix+shift+r
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# Switch panes using Alt-arrow without prefix
+focus_pane_left = "alt+left"
+focus_pane_right = "alt+right"
+focus_pane_up = "alt+up"
+focus_pane_down = "alt+down"
+
+# Switch between tabs (tmux windows)
+previous_tab = ["prefix+p", "alt+shift+left"]
+next_tab = ["prefix+n", "alt+shift+right"]
+
+# Swap tabs left or right without prefix
+move_tab_previous = "ctrl+shift+left"
+move_tab_next = "ctrl+shift+right"
+
+# Closest equivalent to tmux copy-mode search
+edit_scrollback = ["prefix+e", "ctrl+alt+f"]
+
+# Fuzzy project picker, like tmux-sessions
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "$HOME/.config/scripts/herdr-workspaces"
+description = "Open project workspace"
+width = "80%"
+height = "80%"
+
+[ui]
+# Mouse on, mouse selection copies to clipboard (tmux-yank)
+mouse_capture = true
+copy_on_select = true
+
+# Status line at the top with date/time
+tab_bar_position = "top"
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "datetime", format = "%d/%m %H:%M" },
+]
+status_indicators = "symbols"
+
+[ui.toast]
+delivery = "herdr"
