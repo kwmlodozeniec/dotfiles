@@ -33,6 +33,7 @@
     "codebook": true,
     "docker-compose": true,
     "dockerfile": true,
+    "emmet": true,
     "git-firefly": true,
     "harper": true,
     "html": true,
