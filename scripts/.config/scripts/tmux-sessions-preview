@@ -2,13 +2,10 @@
 
 dir="$1"
 
-# Strip the session indicator if present
-dir=${dir% \[●\]}
-
-# Check if session exists
-session_name=$(basename "$dir" | tr '. ' '_' | tr -cd '[:alnum:]_-')
-if tmux has-session -t "=$session_name" 2>/dev/null; then
-    echo "📁 $(basename "$dir") ● ACTIVE SESSION"
+# The caller marks active sessions/workspaces with [●], so this works for tmux and herdr
+if [[ "$dir" == *" [●]" ]]; then
+    dir=${dir% \[●\]}
+    echo "📁 $(basename "$dir") ● ACTIVE"
 else
     echo "📁 $(basename "$dir")"
 fi

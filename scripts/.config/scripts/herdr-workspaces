@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+preview_script="$script_dir/tmux-sessions-preview"
+
+# Load configuration
+# Priority: 1. Environment variable, 2. Defaults
+if [[ -n "$TMUX_SESSION_DIRS" ]]; then
+    # Use environment variable (colon-separated paths)
+    IFS=':' read -ra search_dirs <<< "$TMUX_SESSION_DIRS"
+else
+    # Use defaults based on OS
+    if [ "$(uname)" = "Darwin" ]; then
+        search_dirs=("$HOME/.config" "$HOME/projects")
+    elif [ "$(uname)" = "Linux" ]; then
+        search_dirs=("$HOME/.config" "$HOME/work" "$HOME/private" "$HOME/projects")
+    fi
+fi
+
+# Panes set HERDR_ENV, popups only get HERDR_ACTIVE_* variables
+inside_herdr=false
+if [[ -n "$HERDR_ENV" || -n "$HERDR_ACTIVE_PANE_ID" ]]; then
+    inside_herdr=true
+fi
+
+# Empty when no herdr server is running
+workspaces=$(herdr workspace list 2>/dev/null)
+
+workspace_name() {
+    basename "$1" | tr '. ' '_' | tr -cd '[:alnum:]_-'
+}
+
+workspace_id() {
+    jq -r --arg label "$1" \
+        '.result.workspaces[] | select(.label == $label) | .workspace_id' <<< "$workspaces" | head -1
+}
+
+# Function to annotate directories with workspace status
+# Active workspaces are emitted first so they appear at the top of the fzf list.
+annotate_with_workspaces() {
+    local -a active inactive
+    while IFS= read -r dir; do
+        if [[ -n "$(workspace_id "$(workspace_name "$dir")")" ]]; then
+            active+=("$dir [●]")
+        else
+            inactive+=("$dir")
+        fi
+    done
+    if [[ ${#active[@]} -gt 0 ]]; then
+        printf '%s\n' "${active[@]}"
+    fi
+    if [[ ${#inactive[@]} -gt 0 ]]; then
+        printf '%s\n' "${inactive[@]}"
+    fi
+}
+
+if [[ $# -eq 1 ]]; then
+    dir=$1
+else
+    # Build find command with all search directories
+    find_args=()
+    for search_dir in "${search_dirs[@]}"; do
+        # Expand tilde and check if directory exists
+        expanded_dir="${search_dir/#\~/$HOME}"
+        if [[ -d "$expanded_dir" ]]; then
+            find_args+=("$expanded_dir")
+        fi
+    done
+
+    if [[ ${#find_args[@]} -eq 0 ]]; then
+        echo "Error: No valid search directories found" >&2
+        exit 1
+    fi
+
+    dir=$(find "${find_args[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | \
+        annotate_with_workspaces | \
+        fzf --layout=reverse --border --preview "$preview_script {}" --preview-window=right:50%:wrap --header='Select a project directory (● = open workspace)')
+fi
+
+if [[ -z "$dir" ]]; then
+    exit 0
+fi
+
+# Strip the workspace indicator if present
+dir=${dir% \[●\]}
+
+# No server yet: start herdr in the project, its first workspace opens there
+if [[ -z "$workspaces" ]]; then
+    cd "$dir" && exec herdr
+fi
+
+name=$(workspace_name "$dir")
+id=$(workspace_id "$name")
+
+if [[ -n "$id" ]]; then
+    herdr workspace focus "$id" > /dev/null
+else
+    herdr workspace create --cwd "$dir" --label "$name" --focus > /dev/null
+fi
+
+# Outside herdr, attach to the server
+if [[ "$inside_herdr" == false ]]; then
+    exec herdr
+fi
