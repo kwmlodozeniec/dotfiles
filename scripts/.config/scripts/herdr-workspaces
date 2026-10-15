@@ -27,12 +27,39 @@ fi
 workspaces=$(herdr workspace list 2>/dev/null)
 
 workspace_name() {
-    basename "$1" | tr '. ' '_' | tr -cd '[:alnum:]_-'
+    local dir=${1%/}
+    printf '%s/%s' "$(basename "$(dirname "$dir")")" "$(basename "$dir")" |
+        tr '. ' '_' | tr -cd '[:alnum:]_/-'
 }
 
 workspace_id() {
     jq -r --arg label "$1" \
         '.result.workspaces[] | select(.label == $label) | .workspace_id' <<< "$workspaces" | head -1
+}
+
+# Default layout for new workspaces: tab 1 "terminal", tab 2 "git" running lazygit
+setup_layout() {
+    local created=$1 dir=$2 ws tab pane
+    ws=$(jq -r '.result.workspace.workspace_id' <<< "$created")
+    tab=$(jq -r '.result.tab.tab_id' <<< "$created")
+    herdr tab rename "$tab" terminal > /dev/null
+
+    pane=$(herdr tab create --workspace "$ws" --cwd "$dir" --label git --no-focus |
+        jq -r '.result.root_pane.pane_id')
+    herdr pane run "$pane" lazygit > /dev/null
+}
+
+# Focus the project's workspace, creating it with the default layout if needed
+open_workspace() {
+    local name id created
+    name=$(workspace_name "$dir")
+    id=$(workspace_id "$name")
+    if [[ -n "$id" ]]; then
+        herdr workspace focus "$id" > /dev/null
+    else
+        created=$(herdr workspace create --cwd "$dir" --label "$name" --focus)
+        setup_layout "$created" "$dir"
+    fi
 }
 
 # Function to annotate directories with workspace status
@@ -84,19 +111,25 @@ fi
 # Strip the workspace indicator if present
 dir=${dir% \[●\]}
 
-# No server yet: start herdr in the project, its first workspace opens there
+# No server yet: herdr starts one on launch. Launching from $HOME labels its default
+# workspace "~", which the background job swaps for the project once the server is up.
 if [[ -z "$workspaces" ]]; then
-    cd "$dir" && exec herdr
+    (
+        # The API answers before the default workspace exists, so wait for one
+        until [[ $(herdr workspace list 2>/dev/null | jq '.result.workspaces | length' 2>/dev/null) -gt 0 ]]; do
+            sleep 0.1
+        done
+        workspaces=$(herdr workspace list)
+        startup_id=$(workspace_id "~")
+        open_workspace
+        if [[ -n "$startup_id" ]]; then
+            herdr workspace close "$startup_id"
+        fi
+    ) > /dev/null 2>&1 &
+    cd "$HOME" && exec herdr
 fi
 
-name=$(workspace_name "$dir")
-id=$(workspace_id "$name")
-
-if [[ -n "$id" ]]; then
-    herdr workspace focus "$id" > /dev/null
-else
-    herdr workspace create --cwd "$dir" --label "$name" --focus > /dev/null
-fi
+open_workspace
 
 # Outside herdr, attach to the server
 if [[ "$inside_herdr" == false ]]; then

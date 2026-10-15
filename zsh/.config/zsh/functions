@@ -194,3 +194,13 @@ bindkey '^x^e' edit-command-line
 
 # Enable zmv
 autoload -Uz zmv
+
+# Bare herdr opens a workspace for the current directory, even when a
+# server is already running. Any arguments go straight to herdr.
+function herdr() {
+    if [[ $# -gt 0 ]]; then
+        command herdr "$@"
+        return
+    fi
+    "$HOME/.config/scripts/herdr-workspaces" "$PWD"
+}
