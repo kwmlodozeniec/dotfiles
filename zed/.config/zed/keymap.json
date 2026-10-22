@@ -82,6 +82,18 @@
       ]
     }
   },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-shift-pageup": "git::Push"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-shift-pagedown": "git::Pull"
+    }
+  },
   //
   // ============================================================================
   // Helix Mode Keybindings
